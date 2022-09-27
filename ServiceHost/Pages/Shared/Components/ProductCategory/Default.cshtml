@@ -1,0 +1,40 @@
+﻿@model List<_01_LampShadeQuery.Contracts.ProductCategory.ProductCategoryQueryModel>
+
+
+<div class="category-area section-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!--=======  category wrapper  =======-->
+                    <div class="category-wrapper">
+                        <div class="row row-10">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-lg-4 col-sm-6 grid-item">
+                                    <!--=======  single category item  =======-->
+                                    <div class="single-category-item">
+                                        <div class="single-category-item__image">
+                                            <a asp-page="/ProductCategory">
+                                                <img src="@item.Picture" title="@item.PictureTitle"  class="img-fluid" alt="@item.PictureAlt">
+                                            </a>
+                                        </div>
+                                        <div class="single-category-item__content">
+                                            <h3 class="title">@item.Name</h3>
+                                            <a href="shop-left-sidebar.html">
+                                                <i class="ion-android-arrow-dropleft-circle"></i> خرید 
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!--=======  End of single category item  =======-->
+                                </div>
+                            }
+                            
+
+
+                        </div>
+                    </div>
+                    <!--=======  End of category wrapper  =======-->
+                </div>
+            </div>
+        </div>
+    </div>

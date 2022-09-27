@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>_01_LampShadeQuery</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DiscountManagement.Infrastructure.EfCore\DiscountManagement.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\InventoryManagement.Infrastructure.EfCore\InventoryManagement.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\ShopManagement.Infrastructure.EfCore\ShopManagement.Infrastructure.EfCore.csproj" />
+  </ItemGroup>
+
+</Project>
