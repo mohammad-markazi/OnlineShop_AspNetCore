@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -49,6 +50,20 @@ namespace _01_LampShadeQuery.Query
             }).ToList();
         }
 
+        public ProductCategoryQueryModel ProductCategoriesWithProductsBy(string slug)
+        {
+            return _context.ProductCategories.Include(x => x.Products).Select(x => new ProductCategoryQueryModel()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                MetaDescription = x.MetaDescription,
+                Keywords = x.Keywords,
+                Description = x.Description,
+                Slug = x.Slug,
+                Products = MapProducts(x.Products, _inventoryContext, _discountContext)
+            }).FirstOrDefault(x=>x.Slug==slug);
+        }
+
         private static List<ProductQueryModel> MapProducts(List<Product> products,InventoryContext inventoryContext,DiscountContext discountContext)
         {
 
@@ -74,6 +89,7 @@ namespace _01_LampShadeQuery.Query
                 {
                     var discountAmout = Math.Round((inventory.UnitPrice * productQueryModel.DiscountRate) / 100);
                     productQueryModel.PriceWithDiscount=(inventory.UnitPrice - discountAmout).ToMoney();
+                    productQueryModel.DiscountExpiration = discount!.EndDate.ToDiscountFormat();
                 }
                 result.Add(productQueryModel);
 

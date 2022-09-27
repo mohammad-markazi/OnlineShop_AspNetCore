@@ -21,5 +21,8 @@ namespace _01_LampShadeQuery.Contracts.Product
         public string PictureAlt { get; set; }
         public string Slug { get; set; }
 
+
+        public string DiscountExpiration { get; set; }
+
     }
 }

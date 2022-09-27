@@ -14,7 +14,7 @@
                                     <!--=======  single category item  =======-->
                                     <div class="single-category-item">
                                         <div class="single-category-item__image">
-                                            <a asp-page="/ProductCategory">
+                                            <a asp-page="/ProductCategoryDetail" asp-route-id="@item.Slug">
                                                 <img src="@item.Picture" title="@item.PictureTitle"  class="img-fluid" alt="@item.PictureAlt">
                                             </a>
                                         </div>

@@ -13,42 +13,36 @@ namespace _0_Framework.Application
         #region Slug
 
         /// <returns></returns>  
-        public static string RemoveAccents(this string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-                return text;
-
-            text = text.Normalize(NormalizationForm.FormD);
-            char[] chars = text
-                .Where(c => CharUnicodeInfo.GetUnicodeCategory(c)
-                            != UnicodeCategory.NonSpacingMark).ToArray();
-
-            return new string(chars).Normalize(NormalizationForm.FormC);
-        }
-
-        /// <summary>  
-        /// Turn a string into a slug by removing all accents,   
-        /// special characters, additional spaces, substituting   
-        /// spaces with hyphens & making it lower-case.  
-        /// </summary>  
-        /// <param name="phrase">The string to turn into a slug.</param>  
-        /// <returns></returns>  
         public static string Slugify(this string phrase)
         {
-            // Remove all accents and make the string lower case.  
-            string output = phrase.RemoveAccents().ToLower();
+            var s = phrase.RemoveDiacritics().ToLower();
+            s = Regex.Replace(s, @"[^\u0600-\u06FF\uFB8A\u067E\u0686\u06AF\u200C\u200Fa-z0-9\s-]",
+                ""); // remove invalid characters
+            s = Regex.Replace(s, @"\s+", " ").Trim(); // single space
+            s = s.Substring(0, s.Length <= 100 ? s.Length : 45).Trim(); // cut and trim
+            s = Regex.Replace(s, @"\s", "-"); // insert hyphens        
+            s = Regex.Replace(s, @"‌", "-"); // half space
+            return s.ToLower();
+        }
 
-            // Remove all special characters from the string.  
-            output = Regex.Replace(output, @"[^A-Za-z0-9\s-]", "");
+        public static string RemoveDiacritics(this string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return string.Empty;
 
-            // Remove all additional spaces in favour of just one.  
-            output = Regex.Replace(output, @"\s+", " ").Trim();
+            var normalizedString = text.Normalize(NormalizationForm.FormKC);
+            var stringBuilder = new StringBuilder();
 
-            // Replace all spaces with the hyphen.  
-            output = Regex.Replace(output, @"\s", "-");
+            foreach (var c in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
 
-            // Return the slug.  
-            return output;
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
         #endregion
