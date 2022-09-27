@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
 using _0_Framework.Infrastructure;
+using _01_LampShadeQuery.Contracts.Product;
 using _01_LampShadeQuery.Contracts.ProductCategory;
 using _01_LampShadeQuery.Contracts.Slide;
 using _01_LampShadeQuery.Query;
@@ -36,6 +37,8 @@ namespace ShopManagement.Configuration
 
             service.AddTransient<IProductApplication, ProductApplication>();
             service.AddTransient<IProductRepository, ProductRepository>();
+            //Query
+            service.AddTransient<IProductQuery, ProductQuery>();
 
 
 
