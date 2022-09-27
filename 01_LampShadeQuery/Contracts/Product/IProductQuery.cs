@@ -9,5 +9,6 @@ namespace _01_LampShadeQuery.Contracts.Product
     public interface IProductQuery
     {
         List<ProductQueryModel> GetLatestProducts();
+        List<ProductQueryModel> Search(string value);
     }
 }
