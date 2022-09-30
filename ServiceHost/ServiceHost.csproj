@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Files\ProductPictures\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Components\LatestProducts\Default.cshtml" />
   </ItemGroup>
 

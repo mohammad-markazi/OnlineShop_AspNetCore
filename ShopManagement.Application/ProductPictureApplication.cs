@@ -8,6 +8,7 @@ using _0_Framework.Application;
 using _0_Framework.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.ProductPicture;
+using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 
 namespace ShopManagement.Application
@@ -15,16 +16,23 @@ namespace ShopManagement.Application
     public class ProductPictureApplication:IProductPictureApplication
     {
         private readonly IProductPictureRepository _productPictureRepository;
-
-        public ProductPictureApplication(IProductPictureRepository productPictureRepository)
+        private readonly IProductRepository _productRepository;
+        private readonly IFileUploader _fileUploader;
+        public ProductPictureApplication(IProductPictureRepository productPictureRepository, IProductRepository productRepository, IFileUploader fileUploader)
         {
             _productPictureRepository = productPictureRepository;
+            _productRepository = productRepository;
+            _fileUploader = fileUploader;
         }
 
         public OperationResult Create(CreateProductPicture command)
         {
             var operation=new OperationResult();
-            var productPicture = new ProductPicture(command.ProductId, command.Picture, command.PictureAlt,
+            var product = _productRepository.GetWithCategory(command.ProductId);
+            var fileName = _fileUploader.Upload(command.Picture, "ProductCategoryPictures", product.Category.Slug,
+                product.Slug);
+
+            var productPicture = new ProductPicture(command.ProductId, fileName, command.PictureAlt,
                 command.PictureTitle);
 
             _productPictureRepository.Create(productPicture);
@@ -36,10 +44,17 @@ namespace ShopManagement.Application
         public OperationResult Edit(EditProductPicture command)
         {
             var operation = new OperationResult();
-            var productPicture = _productPictureRepository.Get(command.Id);
+            var productPicture = _productPictureRepository.GetWithProductAndCategoryBy(command.Id);
             if (productPicture is null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
-            productPicture.Edit(command.ProductId, command.Picture, command.PictureAlt,
+
+            _fileUploader.RemoveFile(productPicture.Picture);
+
+            var fileName = _fileUploader.Upload(command.Picture, "ProductCategoryPictures",
+                productPicture.Product.Category.Slug,
+                productPicture.Product.Slug);
+
+            productPicture.Edit(command.ProductId, fileName, command.PictureAlt,
                 command.PictureTitle);
             _productPictureRepository.SaveChanges();
             return operation.Succeeded();
@@ -51,7 +66,7 @@ namespace ShopManagement.Application
             return new EditProductPicture()
             {
                 Id = productPicture.Id,
-                Picture = productPicture.Picture,
+                // Picture = productPicture.Picture,
                 PictureAlt = productPicture.PictureAlt,
                 PictureTitle = productPicture.PictureTitle,
                 ProductId = productPicture.ProductId,
@@ -89,7 +104,7 @@ namespace ShopManagement.Application
 
             var result = query.Include(x => x.Product).Select(x => new ProductPictureViewModel()
             {
-                CreationDate = x.CreationDate.ToString(),
+                CreationDate = x.CreationDate.ToFarsi(),
                 Id = x.Id,
                 Picture = x.Picture,
                 ProductName = x.Product.Name,

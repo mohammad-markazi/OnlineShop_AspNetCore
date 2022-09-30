@@ -53,7 +53,6 @@ $(document).ready(function () {
             const method = form.attr("method").toLocaleLowerCase();
             const url = form.attr("action");
             var action = form.attr("data-action");
-
             if (method === "get") {
                 const data = form.serializeArray();
                 $.get(url,
@@ -62,7 +61,7 @@ $(document).ready(function () {
                         CallBackHandler(data, action, form);
                     });
             } else {
-                var formData = new FormData(this);
+                var formData = new FormData(this)
                 $.ajax({
                     url: url,
                     type: "post",
@@ -216,7 +215,20 @@ jQuery.validator.addMethod("maxFileSize",
             return true;
         }
     });
+
 jQuery.validator.unobtrusive.adapters.addBool("maxFileSize");
+
+jQuery.validator.addMethod("fileExtensionLimit",
+    function (value, element, params) {
+        var formatFile = element.files[0].name.split('.')[1];
+        debugger;
+        var formatValidLimit = ['jpg', 'png', 'jpeg'];
+        if (formatValidLimit.includes(formatFile)) {
+            return true;
+        }
+        return false;
+    });
+jQuery.validator.unobtrusive.adapters.addBool("fileExtensionLimit");
 
 //jQuery.validator.addMethod("maxFileSize",
 //    function (value, element, params) {

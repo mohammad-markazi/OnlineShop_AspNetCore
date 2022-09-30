@@ -53,12 +53,16 @@ namespace ShopManagement.Infrastructure.EfCore.Repositories
                 Keywords = x.Keywords,
                 MetaDescription = x.MetaDescription,
                 Name = x.Name,
-                Picture = x.Picture,
                 PictureAlt = x.PictureAlt,
                 PictureTitle = x.PictureTitle,
                 Slug = x.Slug,
                 ShortDescription = x.ShortDescription,
             }).FirstOrDefault(x => x.Id == id);
+        }
+
+        public Product GetWithCategory(long id)
+        {
+            return _context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
         }
     }
 }

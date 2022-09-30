@@ -279,7 +279,7 @@ obj/
 # Common node modules locations
 /node_modules
 /wwwroot/node_modules
-
+/wwwroot/Files
 ### VisualStudio ###
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore

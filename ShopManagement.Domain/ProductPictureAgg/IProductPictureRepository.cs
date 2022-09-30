@@ -9,6 +9,6 @@ namespace ShopManagement.Domain.ProductPictureAgg
 {
     public interface IProductPictureRepository:IRepository<long,ProductPicture>
     {
-
+        ProductPicture GetWithProductAndCategoryBy(long id);
     }
 }

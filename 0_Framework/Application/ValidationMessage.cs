@@ -10,6 +10,8 @@ namespace _0_Framework.Application
     {
 
         public const string Required = "این فیلد الزامی میباشد";
+        public const string ErrorSize = "فایل مورد نظر حجم معتبر ندارد";
+        public const string ErrorExtensionFile = "فرمت فایل مجاز نمیباشد";
 
     }
 }
