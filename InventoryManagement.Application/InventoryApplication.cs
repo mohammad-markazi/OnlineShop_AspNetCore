@@ -74,7 +74,7 @@ namespace InventoryManagement.Application
                 Id = x.Id,
             }).ToList();
 
-            result.ForEach(inventory=> inventory.EntityName=products.First(x=>x.Key==inventory.EntityId).Value);
+            result.ForEach(inventory=> inventory.EntityName=products.FirstOrDefault(x=>x.Key==inventory.EntityId).Value);
 
             return result;
         }

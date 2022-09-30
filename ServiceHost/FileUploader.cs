@@ -36,7 +36,7 @@ namespace ServiceHost
             var filePath = Path.Combine(directoryPath, fileName);
 
             using var output = File.Create(filePath);
-            file.CopyToAsync(output);
+            file.CopyTo(output);
             return $"{String.Join('/',paths)}/{fileName}";
         }
 
