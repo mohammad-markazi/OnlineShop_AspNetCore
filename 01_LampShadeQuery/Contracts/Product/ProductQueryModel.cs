@@ -16,14 +16,26 @@ namespace _01_LampShadeQuery.Contracts.Product
         public string PriceWithDiscount { get; set; }
         public int DiscountRate { get; set; }
         public string CategoryName { get; set; }
-        public string CategorySlug { get; set; }
         public string Picture { get; set; }
         public string PictureTitle { get; set; }
         public string PictureAlt { get; set; }
         public string Slug { get; set; }
-
-
         public string DiscountExpiration { get; set; }
+        public string Code { get;  set; }
+        public string Description { get;  set; }
+        public string Keywords { get;  set; }
+        public string MetaDescription { get;  set; }
+        public string CategorySlug { get; set; }
+        public bool IsInStock { get; set; }
 
+        public List<ProductPictureQueryModel> ProductPictures { get; set; }
+    }
+
+    public class ProductPictureQueryModel
+    {
+        public string Picture { get;  set; }
+        public string PictureAlt { get;  set; }
+        public string PictureTitle { get;  set; }
+        public bool IsRemoved { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace _01_LampShadeQuery.Contracts.Product
     {
         List<ProductQueryModel> GetLatestProducts();
         List<ProductQueryModel> Search(string value);
+
+        ProductQueryModel GetDetailBy(string slug);
     }
 }

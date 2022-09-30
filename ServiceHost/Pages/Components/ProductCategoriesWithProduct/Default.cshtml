@@ -78,7 +78,7 @@
                                                             </div>
                                                         }
                                                        
-                                                        <a href="single-product.html">
+                                                        <a asp-page="/ProductDetail" asp-route-id="@product.Slug">
                                                             <img src="~/Files/@product.Picture" title="@product.PictureTitle" class="img-fluid"
                                                                  alt="@product.PictureAlt">
                                                         </a>
@@ -98,7 +98,7 @@
                                                     <div class="single-grid-product__content">
                                                         <div class="single-grid-product__category-rating">
                                                             <span class="category">
-                                                                <a href="shop-left-sidebar.html">@item.Name</a>
+                                                                <a asp-page="/ProductCategoryDetail" asp-route-id="@product.CategorySlug">@item.Name</a>
                                                             </span>
                                                             <span class="rating">
                                                                 <i class="ion-android-star active"></i>
@@ -110,7 +110,7 @@
                                                         </div>
 
                                                         <h3 class="single-grid-product__title">
-                                                            <a href="single-product.html">
+                                                            <a asp-page="/ProductDetail" asp-route-id="@product.Slug">
                                                                 @product.Name
                                                             </a>
                                                         </h3>
