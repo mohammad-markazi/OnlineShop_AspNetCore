@@ -29,8 +29,16 @@ namespace _01_LampShadeQuery.Contracts.Product
         public bool IsInStock { get; set; }
 
         public List<ProductPictureQueryModel> ProductPictures { get; set; }
+        public List<CommentQueryModel> Comments { get; set; }
+
     }
 
+    public class CommentQueryModel
+    {
+        public string Name { get; set; }
+        public string Message { get; set; }
+
+    }
     public class ProductPictureQueryModel
     {
         public string Picture { get;  set; }

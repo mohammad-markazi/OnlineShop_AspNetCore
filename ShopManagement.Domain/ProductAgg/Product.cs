@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 
@@ -26,7 +27,7 @@ namespace ShopManagement.Domain.ProductAgg
             public long CategoryId { get; private set; }
         public ProductCategory Category { get; set; }
         public List<ProductPicture> ProductPictures { get;private set; }
-
+        public List<Comment> Comments { get; private set; }
         public Product()
         {
             ProductPictures=new List<ProductPicture>();
