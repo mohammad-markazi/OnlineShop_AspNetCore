@@ -1,0 +1,149 @@
+﻿@page
+@model ServiceHost.Areas.Administration.Pages.Blog.Articles.CreateModel
+@{
+    Layout = "Shared/_AdminLayout";
+    ViewData["title"] = "ایجاد مقاله";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">ایجاد مقاله</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"
+                      enctype="multipart/form-data">
+                    <div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.Title" class="control-label">عنوان</label>
+                                    <input type="text" id="Title" class="form-control" asp-for="Article.Title" onchange="makeSlug('Title', 'Slug')">
+                                    <span asp-validation-for="Article.Title" class="error"></span>
+                                </div>
+                            </div><div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.Slug" class="control-label">اسلاگ</label>
+                                    <input type="text" class="form-control" id="Slug" asp-for="Article.Slug">
+                                    <span asp-validation-for="Article.Slug" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.Picture" class="control-label">عکس</label>
+                                    @* <input type="file" class="form-control" asp-for="Picture" accept="image/*"> *@
+                                    <input type="file" class="form-control" asp-for="Article.Picture" accept="image/*">
+                                    <span asp-validation-for="Article.Picture" class="error"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.CategoryId" class="control-label">گروه مقاله</label>
+                                    <select class="form-control" asp-for="Article.CategoryId" asp-items="@Model.ArticleCategories">
+                                        <option value="0">گروه مقاله را انتخاب کنید...</option>
+                                    </select>
+                                    <span asp-validation-for="Article.CategoryId" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.PictureAlt" class="control-label">Alt</label>
+                                    <input type="text" class="form-control" asp-for="Article.PictureAlt">
+                                    <span asp-validation-for="Article.PictureAlt" class="error"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.PictureTitle" class="control-label">عنوان</label>
+                                    <input type="text" class="form-control" asp-for="Article.PictureTitle">
+                                    <span asp-validation-for="Article.PictureTitle" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group no-margin">
+                                    <label asp-for="Article.Description" class="control-label">توضیحات</label>
+                                    <textarea class="form-control autogrow" id="editor" asp-for="Article.Description" 
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                    <span asp-validation-for="Article.Description" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.Keywords" class="control-label">کلمات کلیدی</label>
+                                    <input type="text" class="form-control" asp-for="Article.Keywords">
+                                    <span asp-validation-for="Article.Keywords" class="error"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Article.PublishDate" class="control-label">تاریخ انتشار</label>
+                                    <input type="text" class="form-control persianDateInput" asp-for="Article.PublishDate">
+                                    <span asp-validation-for="Article.PublishDate" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group no-margin">
+                                    <label asp-for="Article.ShortDescription" class="control-label">توضیح کوتاه</label>
+                                    <textarea class="form-control autogrow" id="ShortDescription" asp-for="Article.ShortDescription" onchange="fillField('ShortDescription', 'MetaDescription')"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                    <span asp-validation-for="Article.ShortDescription" class="error"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group no-margin">
+                                    <label asp-for="Article.MetaDescription" class="control-label">توضیحات متا</label>
+                                    <textarea class="form-control autogrow" id="MetaDescription" asp-for="Article.MetaDescription"
+                              style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
+                                    <span asp-validation-for="Article.MetaDescription" class="error"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group no-margin">
+                                    <label asp-for="Article.CanonicalAddress" class="control-label"> لینک مقاله مرتبط</label>
+                                    <input type="text" class="form-control" asp-for="Article.CanonicalAddress">
+                                    <span asp-validation-for="Article.CanonicalAddress" class="error"></span>
+                                </div>
+                            </div>
+           
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script>
+                    CKEDITOR.replace( 'editor' , {
+    language: 'fa',
+    uiColor: '#9AB8F3'
+});
+
+           $('.persianDateInput').persianDatepicker({
+    format: 'YYYY/MM/DD',
+    autoClose: true
+});
+    
+    </script>
+}

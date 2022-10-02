@@ -93,5 +93,11 @@ namespace BlogManagement.Application
                ShowOrder = articleCategory.ShowOrder
            };
         }
+
+        public List<ArticleCategoryViewModel> GetAll()
+        {
+            return _articleCategoryRepository.GetAll()
+                .Select(x => new ArticleCategoryViewModel() { Id = x.Id, Name = x.Name }).ToList();
+        }
     }
 }

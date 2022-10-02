@@ -15,5 +15,7 @@ namespace BlogManagement.Application.Contracts.ArticleCategory
         List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel model);
 
         EditArticleCategory GetDetail(long id);
+
+        List<ArticleCategoryViewModel> GetAll();
     }
 }

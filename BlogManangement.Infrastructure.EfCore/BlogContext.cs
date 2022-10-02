@@ -1,4 +1,5 @@
-﻿using BlogManagement.Domain.ArticleCategoryAgg;
+﻿using BlogManagement.Domain.ArticleAgg;
+using BlogManagement.Domain.ArticleCategoryAgg;
 using BlogManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,5 +20,6 @@ namespace BlogManagement.Infrastructure.EfCore
         }
 
         public DbSet<ArticleCategory> ArticleCategories { get; set; }
+        public DbSet<Article> Articles { get; set; }
     }
 }
