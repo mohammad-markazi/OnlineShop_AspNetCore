@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\01_LampShadeQuery\01_LampShadeQuery.csproj" />
     <ProjectReference Include="..\BlogManangement.Application.Contracts\BlogManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\BlogManangement.Application\BlogManagement.Application.csproj" />
     <ProjectReference Include="..\BlogManangement.Infrastructure.EfCore\BlogManagement.Infrastructure.EfCore.csproj" />

@@ -24,12 +24,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Components\LatestArticles\Default.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Components\LatestProducts\Default.cshtml" />
     <_ContentIncludedByDefault Remove="Pages\Components\ProductCategoriesWithProduct\Default.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Pages\Components\LatestProducts\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Pages\Components\LatestArticles\Default.cshtml" />
   </ItemGroup>
 
 </Project>
