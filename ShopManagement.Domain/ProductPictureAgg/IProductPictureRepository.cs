@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using ShopManagement.Application.Contracts.ProductPicture;
 
 namespace ShopManagement.Domain.ProductPictureAgg
 {
     public interface IProductPictureRepository:IRepository<long,ProductPicture>
     {
         ProductPicture GetWithProductAndCategoryBy(long id);
+        List<ProductPictureViewModel> Search(ProductPictureSearchModel command);
     }
 }

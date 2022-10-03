@@ -49,26 +49,7 @@ namespace ShopManagement.Application
 
         public List<CommentViewModel> Search(CommentSearchModel model)
         {
-            var query = _commentRepository.GetAll();
-
-            if (!string.IsNullOrWhiteSpace(model.Name))
-                query = query.Where(x => x.Name.Contains(model.Name));
-
-            if (!string.IsNullOrWhiteSpace(model.Email))
-                query = query.Where(x => x.Email.Contains(model.Email));
-
-            return query.Include(x=>x.Product).Select(x => new CommentViewModel()
-            {
-                CreationDate = x.CreationDate.ToFarsi(),
-                Name = x.Name,
-                Email = x.Email,
-                Id = x.Id,
-                ProductId = x.ProductId,
-                ProductName = x.Product.Name,
-                IsCanceled = x.IsCanceled,
-                IsConfirmed = x.IsConfirmed,
-                Message = x.Message
-            }).ToList();
+            return _commentRepository.Search(model);
         }
     }
 }

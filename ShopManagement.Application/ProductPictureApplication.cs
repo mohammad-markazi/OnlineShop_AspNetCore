@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using _0_Framework.Application;
-using _0_Framework.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -97,20 +90,7 @@ namespace ShopManagement.Application
 
         public List<ProductPictureViewModel> Search(ProductPictureSearchModel command)
         {
-            var query = _productPictureRepository.GetAll();
-
-            if (command.ProductId != 0)
-                query = query.Where(x => x.ProductId == command.ProductId);
-
-            var result = query.Include(x => x.Product).Select(x => new ProductPictureViewModel()
-            {
-                CreationDate = x.CreationDate.ToFarsi(),
-                Id = x.Id,
-                Picture = x.Picture,
-                ProductName = x.Product.Name,
-                IsRemoved = x.IsRemoved
-            });
-            return result.OrderByDescending(x=>x.Id).ToList();
+          return  _productPictureRepository.Search(command);
         }
     }
 }
