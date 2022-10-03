@@ -43,5 +43,32 @@ namespace _01_LampShadeQuery.Query
                     Title = x.Title,
                 }).ToList();
         }
+
+        public ArticleQueryModel GetArticleDetail(string slug)
+        {
+            var article= _blogContext.Articles.Where(x => x.PublishDate <= DateTime.Now).Select(x =>
+                new ArticleQueryModel()
+                {
+                    Id = x.Id,
+                    PictureAlt = x.PictureAlt,
+                    PictureTitle = x.PictureTitle,
+                    Description = x.Description,
+                    Slug = x.Slug,
+                    CategorySlug = x.ArticleCategory.Slug,
+                    Keywords = x.Keywords,
+                    MetaDescription = x.MetaDescription,
+                    Picture = x.Picture,
+                    PublishDate = x.PublishDate.ToFarsi(),
+                    CategoryName = x.ArticleCategory.Name,
+                    ShortDescription = x.ShortDescription,
+                    Title = x.Title,
+                    CanonicalAddress = x.CanonicalAddress
+                }).FirstOrDefault(x=>x.Slug==slug);
+
+            article!.KeywordList = article.Keywords.Split(",").ToList();
+
+            return article;
+
+        }
     }
 }

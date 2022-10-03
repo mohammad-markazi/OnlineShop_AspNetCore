@@ -70,7 +70,7 @@
                             <div class="col-md-12">
                                 <div class="form-group no-margin">
                                     <label asp-for="Article.Description" class="control-label">توضیحات</label>
-                                    <textarea class="form-control autogrow" asp-for="Article.Description" 
+                                    <textarea class="form-control autogrow" id="editor" asp-for="Article.Description" 
                               style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 104px;"></textarea>
                                     <span asp-validation-for="Article.Description" class="error"></span>
                                 </div>
@@ -135,9 +135,14 @@
 @section Scripts
 {
     <script>
+                      CKEDITOR.replace( 'editor' , {
+    language: 'fa',
+    uiColor: '#9AB8F3'
+});
            $('.persianDateInput').persianDatepicker({
     format: 'YYYY/MM/DD',
     autoClose: true
 });
+    
     </script>
 }

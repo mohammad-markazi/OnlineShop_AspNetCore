@@ -1,4 +1,5 @@
-﻿@*
+﻿@model _01_LampShadeQuery.Contracts.MenuQueryModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
@@ -26,21 +27,28 @@
 
 
                                     <li class="menu-item-has-children">
-                                        <a href="blog-left-sidebar.html">محصولات</a>
+                                        <a>محصولات</a>
                                         <ul class="sub-menu">
 
-                                            <li>
-                                                <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                            </li>
+                                            @foreach (var productCategory in Model.ProductCategories)
+                                            {
+                                                <li>
+                                                    <a asp-page="/ProductCategoryDetail" asp-route-id="@productCategory.Slug">@productCategory.Name</a>
+                                                </li>
+                                            }
+
                                         </ul>
                                     </li>
                                     <li class="menu-item-has-children">
-                                        <a href="blog-left-sidebar.html">مقالات</a>
+                                        <a>مقالات</a>
                                         <ul class="sub-menu">
-
-                                            <li>
-                                                <a href="blog-left-sidebar.html">Blog Left Sidebar</a>
-                                            </li>
+                                            @foreach (var articleCategory in Model.ArticleCategories)
+                                            {
+                                                <li>
+                                                    <a asp-page="/ArticleCategoryDetail" asp-route-id="@articleCategory.Slug">@articleCategory.Name</a>
+                                                </li>
+                                            }
+                                          
                                         </ul>
                                     </li>
                                     <li>

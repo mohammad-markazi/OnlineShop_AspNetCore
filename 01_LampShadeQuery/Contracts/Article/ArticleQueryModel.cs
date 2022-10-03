@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ namespace _01_LampShadeQuery.Contracts.Article
 {
     public class ArticleQueryModel
     {
+        public long Id { get; set; }
         public string Title { get;  set; }
         public string ShortDescription { get;  set; }
 
@@ -19,7 +21,7 @@ namespace _01_LampShadeQuery.Contracts.Article
         public string PictureTitle { get;  set; }
 
         public string Keywords { get;  set; }
-
+        public List<string> KeywordList { get; set; }
         public string MetaDescription { get;  set; }
 
         public string Slug { get;  set; }

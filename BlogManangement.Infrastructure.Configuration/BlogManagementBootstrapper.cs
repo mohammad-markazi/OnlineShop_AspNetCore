@@ -1,4 +1,5 @@
 ﻿using _01_LampShadeQuery.Contracts.Article;
+using _01_LampShadeQuery.Contracts.ArticleCategory;
 using _01_LampShadeQuery.Query;
 using BlogManagement.Application;
 using BlogManagement.Application.Contracts.Article;
@@ -18,6 +19,8 @@ namespace BlogManagement.Infrastructure.Configuration
         {
             services.AddTransient<IArticleCategoryApplication, ArticleCategoryApplication>();
             services.AddTransient<IArticleCategoryRepository, ArticleCategoryRepository>();
+            //query
+            services.AddTransient<IArticleCategoryQuery, ArticleCategoryQuery>();
 
             services.AddTransient<IArticleApplication, ArticleApplication>();
             services.AddTransient<IArticleRepository, ArticleRepository>();

@@ -60,20 +60,7 @@ namespace BlogManagement.Application
 
         public List<ArticleCategoryViewModel> Search(ArticleCategorySearchModel model)
         {
-            var query = _articleCategoryRepository.GetAll();
-
-            if (!string.IsNullOrWhiteSpace(model.Name))
-                query = query.Where(x => x.Name.Contains(model.Name));
-
-            return query.OrderByDescending(x => x.Id).Select(x => new ArticleCategoryViewModel()
-            {
-                Description = x.Description,
-                Id = x.Id,
-                Name = x.Name,
-                Picture = x.Picture,
-                ShowOrder = x.ShowOrder,
-                CreationDate = x.CreationDate.ToFarsi()
-            }).ToList();
+            return _articleCategoryRepository.Search(model);
         }
 
         public EditArticleCategory GetDetail(long id)
