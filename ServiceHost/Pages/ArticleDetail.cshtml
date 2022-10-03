@@ -2,7 +2,9 @@
 @using BlogManagement.Domain.ArticleCategoryAgg
 @model ServiceHost.Pages.ArticleDetailModel
 @{
-    ViewData["Title"] = "جزییات مقاله";
+    ViewData["Title"] = Model.Article.Title;
+    ViewData["keywords"] =Model.Article.Keywords;
+    ViewData["metaDescription"] = Model.Article.MetaDescription;
 }
 
 

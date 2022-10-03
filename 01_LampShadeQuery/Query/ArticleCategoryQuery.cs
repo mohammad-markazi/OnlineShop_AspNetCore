@@ -33,7 +33,7 @@ namespace _01_LampShadeQuery.Query
 
         public ArticleCategoryQueryModel GetArticleCategoryBySlug(string slug)
         {
-            return _blogContext.ArticleCategories.Include(x=>x.Articles).Select(x => new ArticleCategoryQueryModel()
+            var articleCategory= _blogContext.ArticleCategories.Include(x=>x.Articles).Select(x => new ArticleCategoryQueryModel()
             {
                 Slug = x.Slug,
                 Name = x.Name,
@@ -47,6 +47,9 @@ namespace _01_LampShadeQuery.Query
                 Articles = MapArticles(x.Articles)
             }).FirstOrDefault(x => x.Slug == slug);
 
+            articleCategory!.KeywordList = articleCategory.Keywords.Split(",").ToList();
+
+            return articleCategory;
         }
 
         public List<ArticleCategoryQueryModel> GetAllArticleCategories()
