@@ -1,5 +1,5 @@
 ﻿@page
-@model ServiceHost.Areas.Administration.Pages.Shop.Comments.IndexModel
+@model IndexModel
 @{
 }
 
@@ -52,6 +52,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>نام</th>
+                                    <th>نام بخش</th>
                                     <th>ایمیل</th>
                                     <th>پیام</th>
                                     <th>تاریخ ایجاد</th>
@@ -67,6 +68,7 @@
                                         <td>
                                             @item.Name
                                         </td>
+                                        <td>@item.EntityName</td>
                                         <td>@item.Email</td>
                                         <td>@item.Message</td>
                                         <td>@item.CreationDate</td>

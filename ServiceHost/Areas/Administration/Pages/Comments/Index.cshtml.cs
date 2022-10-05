@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using CommentManagement.Application.Contracts.Comment;
+using CommentManagement.Domain.CommentAgg.ApplicationContacts;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost.Areas.Administration.Pages.Shared;
-using ShopManagement.Application.Contracts.Comment;
 
-namespace ServiceHost.Areas.Administration.Pages.Shop.Comments
+namespace ServiceHost.Areas.Administration.Pages.Comments
 {
     public class IndexModel :BasePageModel
     {

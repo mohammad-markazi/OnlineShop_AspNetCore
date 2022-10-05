@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _01_LampShadeQuery.Contracts.Product;
 
 namespace _01_LampShadeQuery.Contracts.Article
 {
@@ -32,5 +33,7 @@ namespace _01_LampShadeQuery.Contracts.Article
         public string CategorySlug { get; set; }
 
         public string PublishDate { get;  set; }
+
+        public List<CommentQueryModel> Comments { get; set; }
     }
 }

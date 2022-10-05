@@ -15,6 +15,7 @@ using BlogManagement.Infrastructure.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using InventoryManagement.Infrastructure.Configuration;
+using CommentManagement.Infrastructure.Configuration;
 
 namespace ServiceHost
 {
@@ -36,6 +37,7 @@ namespace ServiceHost
             DiscountManagementBootstrapper.Configure(services,connectionString);
             InventoryManagementBootstrapper.Configure(services,connectionString);
             BlogManagementBootstrapper.Configure(services,connectionString);
+            CommentManagementBootstrapper.Configure(services,connectionString);
             services.AddTransient<IFileUploader, FileUploader>();
 
             //find text persian encoding in meta tag

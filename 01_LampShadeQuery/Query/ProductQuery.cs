@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Application;
 using _01_LampShadeQuery.Contracts.Product;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure.EfCore;
 using InventoryManagement.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
-using ShopManagement.Domain.CommentAgg;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.EfCore;
 
@@ -19,12 +20,13 @@ namespace _01_LampShadeQuery.Query
         private readonly ShopContext _shopcontext;
         private readonly InventoryContext _inventoryContext;
         private readonly DiscountContext _discountContext;
-
-        public ProductQuery(ShopContext shopcontext, InventoryContext inventoryContext, DiscountContext discountContext)
+        private readonly CommentContext _commentContext;
+        public ProductQuery(ShopContext shopcontext, InventoryContext inventoryContext, DiscountContext discountContext, CommentContext commentContext)
         {
             _shopcontext = shopcontext;
             _inventoryContext = inventoryContext;
             _discountContext = discountContext;
+            _commentContext = commentContext;
         }
 
         public List<ProductQueryModel> GetLatestProducts()
@@ -100,7 +102,7 @@ namespace _01_LampShadeQuery.Query
 
         public ProductQueryModel GetDetailBy(string slug)
         {
-            var product = _shopcontext.Products.Include(x => x.Category).Include(x=>x.Comments.Where(x=>x.IsConfirmed && !x.IsCanceled)).Include(x=>x.ProductPictures).OrderByDescending(x => x.CreationDate).Take(6)
+            var product = _shopcontext.Products.Include(x => x.Category).Include(x=>x.ProductPictures).OrderByDescending(x => x.CreationDate).Take(6)
                 .Select(x => new ProductQueryModel()
                 {
                     CategoryName = x.Category.Name,
@@ -116,12 +118,13 @@ namespace _01_LampShadeQuery.Query
                     MetaDescription = x.MetaDescription,
                     Description = x.Description,
                     Code = x.Code,
-                    Comments = MapComments(x.Comments),
+                    // Comments = MapComments(x.Comments),
                     ProductPictures = MapProductPictures(x.ProductPictures)
                 }).FirstOrDefault(x=>x.Slug==slug);
 
             if (product == null)
                 return new ProductQueryModel();
+
              var inventory = _inventoryContext.Inventory.FirstOrDefault(x => x.EntityId == product.Id);
                 var discount = _discountContext.CustomerDiscounts.FirstOrDefault(x => x.EndDate > DateTime.Now && x.StartDate < DateTime.Now && x.ProductId == product.Id);
                 
@@ -129,6 +132,7 @@ namespace _01_LampShadeQuery.Query
                 product.Price = inventory?.UnitPrice.ToMoney() ?? "بدون قیمت گذاری";
                 product.IsInStock = inventory?.InStock ?? false;
                 product.DiscountRate = discount?.DiscountRate ?? 0;
+                product.Comments = MapComments(product.Id);
 
                 if (inventory != null && discount != null)
                 {
@@ -143,9 +147,16 @@ namespace _01_LampShadeQuery.Query
 
         }
 
-        private static List<CommentQueryModel> MapComments(List<Comment> comments)
+        private  List<CommentQueryModel> MapComments(long id)
         {
-            return comments.OrderByDescending(x=>x.Id).Select(x => new CommentQueryModel() { Message = x.Message, Name = x.Name }).ToList();
+            return _commentContext.Comments
+                .Where(x => x.EntityType == EntityType.Product && x.EntityId == id && x.IsConfirmed && !x.IsCanceled).Select(x =>
+                    new CommentQueryModel()
+                    {
+                        Id = x.Id,
+                        Message = x.Message,
+                        Name = x.Name
+                    }).OrderByDescending(x=>x.Id).ToList(); ;
         }
 
         private static List<ProductPictureQueryModel> MapProductPictures(List<ProductPicture> productPictures)

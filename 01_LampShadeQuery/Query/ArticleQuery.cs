@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using _0_Framework.Application;
 using _01_LampShadeQuery.Contracts.Article;
+using _01_LampShadeQuery.Contracts.Product;
 using BlogManagement.Infrastructure.EfCore;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace _01_LampShadeQuery.Query
@@ -11,10 +14,11 @@ namespace _01_LampShadeQuery.Query
     public class ArticleQuery:IArticleQuery
     {
         private readonly BlogContext _blogContext;
-
-        public ArticleQuery(BlogContext blogContext)
+        private readonly CommentContext _commentContext;
+        public ArticleQuery(BlogContext blogContext, CommentContext commentContext)
         {
             _blogContext = blogContext;
+            _commentContext = commentContext;
         }
         // PictureAlt = x.PictureAlt,
         // PictureTitle = x.PictureTitle,
@@ -64,11 +68,28 @@ namespace _01_LampShadeQuery.Query
                     Title = x.Title,
                     CanonicalAddress = x.CanonicalAddress
                 }).FirstOrDefault(x=>x.Slug==slug);
-
-            article!.KeywordList = article.Keywords.Split(",").ToList();
+            if(article==null)
+                return new ArticleQueryModel();
+            article.Comments = MapComments(article.Id);
+            article.KeywordList = article.Keywords.Split(",").ToList();
 
             return article;
 
+        }
+
+        private List<CommentQueryModel> MapComments(long articleId)
+        {
+            return _commentContext.Comments.Include(x=>x.Parent)
+                .Where(x => x.EntityType == EntityType.Article && x.EntityId == articleId && x.IsConfirmed && !x.IsCanceled).Select(x =>
+                    new CommentQueryModel()
+                    {
+                        Id = x.Id,
+                        Message = x.Message,
+                        Name = x.Name,
+                        CreationDate = x.CreationDate.ToFarsi(),
+                        ParentId = (long)((x.ParentId!=null)?x.ParentId:0),
+                        ParentName =x.Parent!=null? x.Parent.Name:null
+                    }).OrderByDescending(x => x.Id).ToList(); ;
         }
     }
 }

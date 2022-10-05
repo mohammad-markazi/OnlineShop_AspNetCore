@@ -1,4 +1,4 @@
-﻿namespace ShopManagement.Application.Contracts.Comment
+﻿namespace CommentManagement.Domain.CommentAgg.ApplicationContacts
 {
     public class CommentViewModel
     {
@@ -7,8 +7,8 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Message { get; set; }
-        public string ProductName { get; set; }
-        public long ProductId { get; set; }
+        public string EntityName { get; set; }
+        public long EntityId { get; set; }
         public bool IsConfirmed { get;  set; }
         public bool IsCanceled { get;  set; }
         public string CreationDate { get; set; }

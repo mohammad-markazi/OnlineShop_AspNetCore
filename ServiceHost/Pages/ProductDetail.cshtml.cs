@@ -1,8 +1,10 @@
 using _01_LampShadeQuery.Contracts.Product;
+using CommentManagement.Application.Contracts.Comment;
+using CommentManagement.Domain.CommentAgg;
+using CommentManagement.Domain.CommentAgg.ApplicationContacts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ServiceHost.Areas.Administration.Pages.Shared;
-using ShopManagement.Application.Contracts.Comment;
 
 namespace ServiceHost.Pages
 {
@@ -25,13 +27,14 @@ namespace ServiceHost.Pages
 
         public IActionResult OnPost(AddComment comment)
         {
+            comment.EntityType = EntityType.Product;
           var result=  _commentApplication.Add(comment);
           if(result.IsSuccess)
               Alert(result.Message,NotificationType.Success);
           else
               Alert(result.Message,NotificationType.Error);
 
-          return RedirectToPage("./ProductDetail",new {Id=comment.ProductSlug});
+          return RedirectToPage("./ProductDetail",new {Id=comment.EntitySlug});
         }
     }
 }
