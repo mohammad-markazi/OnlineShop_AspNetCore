@@ -1,19 +1,19 @@
 ﻿@page
-@model ServiceHost.Areas.Administration.Pages.Shop.Products.IndexModel
+@model ServiceHost.Areas.Administration.Pages.Accounts.IndexModel
 @{
 }
 
 
 @{
     Layout = "Shared/_AdminLayout";
-    ViewData["title"] = "مدیریت محصولات";
+    ViewData["title"] = "مدیریت کاربران";
 }
 
 <div class="row">
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد محصول جدید</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد کاربر جدید</a>
         </p>
     </div>
 </div>
@@ -22,22 +22,26 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">جستجو در محصولات</h3>
+                <h3 class="panel-title">جستجو در کاربران</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.Name"></label>
-                        <input class="form-control" asp-for="SearchModel.Name"   placeholder="نام محصول">
+                        <label class="sr-only" asp-for="SearchModel.FullName"></label>
+                        <input class="form-control" asp-for="SearchModel.FullName"   placeholder="نام و نام خانوادگی">
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.Code"></label>
-                        <input class="form-control" asp-for="SearchModel.Code"   placeholder="کد محصول">
+                        <label class="sr-only" asp-for="SearchModel.Username"></label>
+                        <input class="form-control" asp-for="SearchModel.Username"   placeholder="نام کاربری">
                     </div>
                     <div class="form-group">
-                        <label class="sr-only" asp-for="SearchModel.CategoryId"></label>
-                        <select class="form-control" asp-for="SearchModel.CategoryId" asp-items="Model.Categories">
-                            <option value="0">گروه محصول...</option>
+                        <label class="sr-only" asp-for="SearchModel.Mobile"></label>
+                        <input class="form-control" asp-for="SearchModel.Mobile"   placeholder="شماره موبایل">
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" asp-for="SearchModel.RoleId"></label>
+                        <select class="form-control" asp-for="SearchModel.RoleId" asp-items="Model.Roles">
+                            <option value="0">نقش ...</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-success waves-effect waves-light m-l-10">جستجو</button>
@@ -52,7 +56,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">لیست  محصولات</h3>
+                <h3 class="panel-title">لیست کاربران</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -63,31 +67,45 @@
                                     <th>#</th>
                                     <th>عکس</th>
                                     <th>نام</th>
-                                    <th>کد</th>
-                                    <th>نام گروه</th>
-                                    <th>تاریخ ایجاد</th>
+                                    <th>نام کاربری</th>
+                                    <th>شماره موبایل</th>
+                                    <th>نقش</th>
+                                    <th>تاریخ ثبت نام</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Products)
+                                @foreach (var item in Model.Accounts)
                                 {
                                     <tr>
                                         <td>@item.Id</td>
 
                                         <td>
-                                            <img src="~/Files/@item.Picture" style="width: 70px; height: 70px" />
+                                            @if (!string.IsNullOrWhiteSpace(item.Profile))
+                                            {
+                                                <img src="~/Files/@item.Profile" style="width: 70px; height: 70px"/>
+
+                                            }
+                                            else
+                                            {
+                                                <img src="~/AdminTheme/images/users/not-found-user.jpg" style="width: 70px; height: 70px"/>
+
+                                            }
                                         </td>
-                                        <td>@item.Name</td>
-                                        <td>@item.Code</td>
-                                        <td>@item.CategoryName</td>
+                                        <td>@item.FullName</td>
+                                        <td>@item.Username</td>
+                                        <td>@item.Mobile</td>
+                                        <td>@item.Role</td>
                                         <td>@item.CreationDate</td>
                                         <td>
                                             <a class="btn btn-warning pull-right m-rl-5" 
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = @item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                         
+                                            <a class="btn btn-primary pull-right m-rl-5" 
+                                               href="#showmodal=@Url.Page("./Index", "ChangePassword", new { id = @item.Id})">
+                                                <i class="fa fa-edit"></i> تغییر کلمه عبور
+                                            </a>
                                         </td>
                                     </tr>
                                   } 
