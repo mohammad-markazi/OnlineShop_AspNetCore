@@ -10,6 +10,8 @@ namespace _0_Framework.Application
     {
         public const string DuplicatedRecord = "امکان ثبت رکورد تکراری وجود ندارد";
         public const string NotFoundRecord = "رکورد درخواستی شما یافت نشد";
+        public const string PasswordNotMatch = "کلمه عبور و تکرار کلمه عبور مغایرت دارند";
+        public const string DuplicatedAccount = "نام کاربری یا شماره موبایل در سیستم وجود دارد";
 
     }
 }

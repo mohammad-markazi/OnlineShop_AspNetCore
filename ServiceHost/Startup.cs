@@ -11,6 +11,7 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using AccountManagement.Infrastructure.Configuration;
 using BlogManagement.Infrastructure.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
@@ -38,8 +39,9 @@ namespace ServiceHost
             InventoryManagementBootstrapper.Configure(services,connectionString);
             BlogManagementBootstrapper.Configure(services,connectionString);
             CommentManagementBootstrapper.Configure(services,connectionString);
-            services.AddTransient<IFileUploader, FileUploader>();
-
+            AccountManagementBootstrapper.Configure(services,connectionString);
+            services.AddSingleton<IFileUploader, FileUploader>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
             //find text persian encoding in meta tag
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
             services.AddRazorPages();
