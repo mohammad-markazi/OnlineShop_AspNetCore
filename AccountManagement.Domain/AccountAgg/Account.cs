@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using AccountManagement.Domain.RoleAgg;
 
 namespace AccountManagement.Domain.AccountAgg
 {
@@ -17,7 +18,7 @@ namespace AccountManagement.Domain.AccountAgg
         public string Mobile { get; private set; }
         public string Profile { get; private set; }
         public long RoleId { get; private set; }
-
+        public Role Role { get; private set; }
         public Account(string fullName, string username, string password, string mobile, string profile, long roleId)
         {
             FullName = fullName;

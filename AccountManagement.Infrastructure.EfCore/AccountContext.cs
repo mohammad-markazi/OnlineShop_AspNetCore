@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.RoleAgg;
 using AccountManagement.Infrastructure.EfCore.Mapping;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,5 +22,7 @@ namespace AccountManagement.Infrastructure.EfCore
 
 
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Role> Roles { get; set; }
+
     }
 }
