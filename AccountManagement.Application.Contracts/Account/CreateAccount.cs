@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using AccountManagement.Application.Contracts.Role;
 using Microsoft.AspNetCore.Http;
 
 namespace AccountManagement.Application.Contracts.Account
@@ -25,5 +26,7 @@ namespace AccountManagement.Application.Contracts.Account
         public IFormFile Profile { get;  set; }
         [Range(1,int.MaxValue,ErrorMessage = ValidationMessage.Required)]
         public long RoleId { get;  set; }
+
+        public List<RoleViewModel> Roles { get; set; }
     }
 }

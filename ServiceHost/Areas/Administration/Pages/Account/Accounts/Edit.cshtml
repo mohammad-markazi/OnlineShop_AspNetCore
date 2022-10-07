@@ -1,13 +1,13 @@
-﻿@model AccountManagement.Application.Contracts.Account.CreateAccount
+﻿@model AccountManagement.Application.Contracts.Account.EditAccount
 
 
 
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">ایجاد کاربر جدید</h4>
+    <h4 class="modal-title">ویرایش کاربر</h4>
 </div>
 
-<form asp-page="./Index" asp-page-handler="Create"
+<form asp-page="./Index" asp-page-handler="Edit"
       method="post"
       data-ajax="true"
       data-callback=""
@@ -32,7 +32,7 @@
             </div>
         <div class="row">
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label asp-for="Username" class="control-label">نام کاربری</label>
                     <input type="text" class="form-control" asp-for="Username">
@@ -40,20 +40,13 @@
                 </div>
 
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label asp-for="Password" class="control-label">کلمه عبور</label>
-                    <input type="password" class="form-control" asp-for="Password">
-                    <span asp-validation-for="Password" class="error"></span>
-                </div>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
         
                 <div class="form-group">
                     <label asp-for="RoleId" class="control-label">نقش کاربر</label>
-                    <select class="form-control" asp-for="RoleId">
+                    <select class="form-control" asp-for="RoleId" asp-items='new SelectList(Model.Roles,"Id","Name")'>
                         <option value="0">نقش کاربر را انتخاب کنید...</option>
                     </select>
                     <span asp-validation-for="RoleId" class="error"></span>
@@ -70,10 +63,10 @@
                 </div>
             </div>
         </div>
-    
+    <input type="hidden" asp-for="Id" value="@Model.Id"/>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">بستن</button>
-        <button type="submit" class="btn btn-info waves-effect waves-light">ایجاد</button>
+        <button type="submit" class="btn btn-warning waves-effect waves-light">ویرایش</button>
     </div>
 </form>

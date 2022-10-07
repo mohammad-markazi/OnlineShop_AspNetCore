@@ -36,14 +36,14 @@ namespace AccountManagement.Infrastructure.EfCore.Repositories
             if(model.RoleId!=0)
                 query = query.Where(x => x.RoleId==model.RoleId);
 
-            return query.Select(x=> new AccountViewModel()
+            return query.Include(x=>x.Role).Select(x=> new AccountViewModel()
             {
                 FullName = x.FullName,
                 Id = x.Id,
                 Username = x.Username,
                 Mobile = x.Mobile,
                 Profile = x.Profile,
-                Role = "مدیر سیستم",
+                Role = x.Role.Name,
                 CreationDate = x.CreationDate.ToFarsi()
             }).OrderByDescending(x=>x.Id).ToList();
 

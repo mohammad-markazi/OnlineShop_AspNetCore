@@ -1,19 +1,21 @@
 using System.Collections.Generic;
-using System.Linq;
 using AccountManagement.Application.Contracts.Account;
+using AccountManagement.Application.Contracts.Role;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
 
-namespace ServiceHost.Areas.Administration.Pages.Accounts
+namespace ServiceHost.Areas.Administration.Pages.Account.Accounts
 {
     public class IndexModel :BasePageModel
     {
         private readonly IAccountApplication _accountApplication;
+        private readonly IRoleApplication _roleApplication;
 
-        public IndexModel(IAccountApplication accountApplication)
+        public IndexModel(IAccountApplication accountApplication, IRoleApplication roleApplication)
         {
             _accountApplication = accountApplication;
+            _roleApplication = roleApplication;
         }
 
 
@@ -24,14 +26,17 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts
         public void OnGet()
 
         {
-
+            Roles = new SelectList(_roleApplication.GetAll(), "Id", "Name");
             Accounts = _accountApplication.Search(SearchModel);
         }
 
         public IActionResult OnGetCreate()
         {
-          
-            return Partial("./Create", new CreateAccount());
+            var command = new CreateAccount()
+            {
+                Roles = _roleApplication.GetAll(),
+            };
+            return Partial("./Create", command);
         }
 
         public JsonResult OnPostCreate(CreateAccount command)
@@ -43,7 +48,7 @@ namespace ServiceHost.Areas.Administration.Pages.Accounts
         public IActionResult OnGetEdit(long id)
         {
             var account = _accountApplication.GetDetail(id);
-
+            account.Roles = _roleApplication.GetAll();
             return Partial("./Edit", account);
         }
 
