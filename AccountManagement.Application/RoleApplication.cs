@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Domain;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,19 @@ namespace AccountManagement.Application
                 CreationDate = x.CreationDate.ToFarsi(),
                 Name = x.Name
             }).ToList();
+        }
+
+        public EditRole GetRoleByType(int type)
+        {
+            var role= _roleRepository.GetByType(type);
+            if (role == null)
+                return null;
+            return new EditRole()
+            {
+                Id = role.Id,
+                Type = role.Type,
+                Name = role.Name
+            };
         }
     }
 }

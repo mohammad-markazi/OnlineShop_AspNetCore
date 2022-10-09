@@ -12,10 +12,18 @@ namespace AccountManagement.Domain.RoleAgg
     {
         public string Name { get;private set; }
         public List<Account> Accounts { get; private set; }
-
+        public int Type { get; private set; }
         public Role(string name)
         {
             Name = name;
+            
+        }
+
+        public Role(string name,int type)
+        {
+            Type = type;
+            Name = name;
+
         }
 
         public void Edit(string name)
@@ -24,4 +32,8 @@ namespace AccountManagement.Domain.RoleAgg
         }
 
     }
+
+ 
+
+  
 }

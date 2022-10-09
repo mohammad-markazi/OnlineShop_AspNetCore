@@ -49,6 +49,11 @@ namespace AccountManagement.Infrastructure.EfCore.Repositories
 
         }
 
+        public Account GetByUsername(string username)
+        {
+            return _context.Accounts.SingleOrDefault(x => x.Username == username);
+        }
+
         public EditAccount GetDetail(long id)
         {
             var account= _context.Accounts.FirstOrDefault(x => x.Id == id);

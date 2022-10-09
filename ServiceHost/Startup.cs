@@ -11,12 +11,16 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 using _0_Framework.Application;
+using _0_Framework.Infrastructure;
 using AccountManagement.Infrastructure.Configuration;
+using AccountManagement.Infrastructure.EfCore;
 using BlogManagement.Infrastructure.Configuration;
 using ShopManagement.Configuration;
 using DiscountManagement.Infrastructure.Configuration;
 using InventoryManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace ServiceHost
 {
@@ -32,6 +36,7 @@ namespace ServiceHost
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("LampShade");
 
             ShopManagementBootstrapper.Configure(services, connectionString);
@@ -42,9 +47,25 @@ namespace ServiceHost
             AccountManagementBootstrapper.Configure(services,connectionString);
             services.AddSingleton<IFileUploader, FileUploader>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<IAuthHelper,AuthHelper>();
             //find text persian encoding in meta tag
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
+            services.AddScoped<IDataInitializer, DataInitializer>();
             services.AddRazorPages();
+
+            // services.Configure<CookiePolicyOptions>(options =>
+            // {
+            //     options.CheckConsentNeeded = context => true;
+            //     options.MinimumSameSitePolicy = SameSiteMode.Lax;
+            // });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
+                {
+                    o.LoginPath = new PathString("/Account");
+                    o.LogoutPath = new PathString("/Account");
+                    o.AccessDeniedPath = new PathString("/AccessDenied");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,13 +82,14 @@ namespace ServiceHost
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.IntializeDatabase<AccountContext>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

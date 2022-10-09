@@ -103,17 +103,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Domain", "AM.Domain", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Application", "AM.Application", "{2CBC5C63-5854-47B9-8555-1F79450F0A29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Domain", "AccountManagement.Domain\AccountManagement.Domain.csproj", "{94423304-2FAE-49C7-B275-0044F38FBCF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Domain", "AccountManagement.Domain\AccountManagement.Domain.csproj", "{94423304-2FAE-49C7-B275-0044F38FBCF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Application.Contracts", "AccountManagement.Application.Contracts\AccountManagement.Application.Contracts.csproj", "{BF694776-8FAF-410D-AABF-C49733BAA4D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Application.Contracts", "AccountManagement.Application.Contracts\AccountManagement.Application.Contracts.csproj", "{BF694776-8FAF-410D-AABF-C49733BAA4D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Application", "AccountManagement.Application\AccountManagement.Application.csproj", "{AFBAA9A7-9F1E-4B2F-81C3-D2ABF2B61659}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Application", "AccountManagement.Application\AccountManagement.Application.csproj", "{AFBAA9A7-9F1E-4B2F-81C3-D2ABF2B61659}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AM.Infrastructure", "AM.Infrastructure", "{EF0C8173-540A-4537-B442-F9679FA10DA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.EfCore", "AccountManagement.Infrastructure.EfCore\AccountManagement.Infrastructure.EfCore.csproj", "{6313064A-64EF-41DE-93C8-93835DD0067C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Infrastructure.EfCore", "AccountManagement.Infrastructure.EfCore\AccountManagement.Infrastructure.EfCore.csproj", "{6313064A-64EF-41DE-93C8-93835DD0067C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountManagement.Infrastructure.Configuration", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj", "{7AEA633B-01BE-49D3-B70D-DC97CD4F67EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccountManagement.Infrastructure.Configuration", "AccountManagement.Infrastructure.Configuration\AccountManagement.Infrastructure.Configuration.csproj", "{7AEA633B-01BE-49D3-B70D-DC97CD4F67EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

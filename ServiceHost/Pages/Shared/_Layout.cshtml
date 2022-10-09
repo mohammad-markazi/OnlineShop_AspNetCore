@@ -14,6 +14,9 @@
     <link href="~/Theme/assets/css/style.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="~/Theme/assets/css/Custom.css" rel="stylesheet">
+    
+    <!-- sweet alerts -->
+    <link href="~/AdminTheme/assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -89,8 +92,18 @@
     <script src="~/Theme/assets/js/vendors.js"></script>
 
     <!-- Active JS -->
-    <script src="~/Theme/assets/js/active.js"></script>
-
+<script src="~/Theme/assets/js/active.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/AdminTheme/assets/sweet-alert/sweet-alert.min.js"></script>
+<script src="~/AdminTheme/assets/sweet-alert/sweet-alert.init.js"></script>
 </body>
 @await RenderSectionAsync("Scripts",false)
+<script>
+@if (@TempData["Notification"] != null)
+{
+    @Html.Raw(TempData["Notification"])
+}
+
+
+</script>
 </html>

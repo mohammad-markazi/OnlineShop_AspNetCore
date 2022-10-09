@@ -30,4 +30,22 @@ namespace _0_Framework.Application
             return this;
         }
     }
+
+    public class OperationResult<T> : OperationResult
+    {
+        public T Data { get; set; }
+        public new OperationResult<T> Failed(string message)
+        {
+            IsSuccess = false;
+            Message = message;
+            return this;
+        }
+
+        public new OperationResult<T> Succeeded(string message = "عملیات با موفقیت انجام شد")
+        {
+            IsSuccess = true;
+            Message = message;
+            return this;
+        }
+    }
 }

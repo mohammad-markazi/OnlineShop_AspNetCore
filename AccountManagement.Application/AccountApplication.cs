@@ -18,7 +18,7 @@ namespace AccountManagement.Application
             _fileUploader = fileUploader;
         }
 
-        public OperationResult Create(CreateAccount command)
+        public OperationResult Register(RegisterAccount command)
         {
             var operation = new OperationResult();
             if (_accountRepository.Exists(x => x.Username == command.Username || x.Mobile==command.Mobile))
@@ -83,6 +83,30 @@ namespace AccountManagement.Application
         public EditAccount GetDetail(long id)
         {
             return _accountRepository.GetDetail(id);
+        }
+
+        public OperationResult<AccountViewModel> Login(Login command)
+        {
+            var operation=new OperationResult<AccountViewModel>();
+            var account = _accountRepository.GetByUsername(command.Username);
+            if (account is null)
+                return operation.Failed(ApplicationMessages.NotFoundUsernameOrPassword);
+
+            var (verified, _) = _passwordHasher.Check(account.Password, command.Password);
+
+            if (!verified)
+                return operation.Failed(ApplicationMessages.NotFoundUsernameOrPassword);
+
+            var result= operation.Succeeded();
+            result.Data = new AccountViewModel()
+            {
+                Id = account.Id,
+                FullName = account.FullName,
+                Username = account.Username,
+                RoleId = account.RoleId
+            };
+
+            return operation;
         }
     }
 }

@@ -9,5 +9,7 @@ namespace AccountManagement.Domain.RoleAgg
 {
     public interface IRoleRepository:IRepository<long,Role>
     {
+
+        Role GetByType(int type);
     }
 }

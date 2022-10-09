@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace AccountManagement.Application.Contracts.Account
 {
-    public class CreateAccount
+    public class RegisterAccount
     {
         public string FullName { get;  set; }
         [Required(ErrorMessage = ValidationMessage.Required)]

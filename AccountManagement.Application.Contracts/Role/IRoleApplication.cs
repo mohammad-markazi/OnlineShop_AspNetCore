@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using _0_Framework.Application;
+using _0_Framework.Domain;
 
 namespace AccountManagement.Application.Contracts.Role
 {
@@ -9,5 +10,7 @@ namespace AccountManagement.Application.Contracts.Role
         OperationResult Edit(EditRole command);
         EditRole GetDetail(long id);
         List<RoleViewModel> GetAll();
+        EditRole GetRoleByType(int type);
+
     }
 }
