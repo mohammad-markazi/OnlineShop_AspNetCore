@@ -11,5 +11,6 @@ namespace AccountManagement.Domain.RoleAgg
     {
 
         Role GetByType(int type);
+        
     }
 }

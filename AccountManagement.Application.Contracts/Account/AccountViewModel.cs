@@ -1,4 +1,6 @@
-﻿namespace AccountManagement.Application.Contracts.Account
+﻿using System.Collections.Generic;
+
+namespace AccountManagement.Application.Contracts.Account
 {
     public class AccountViewModel
     {
@@ -14,6 +16,7 @@
         public long RoleId { get; set; }
 
         public string CreationDate { get; set; }
+        public List<int> Permissions { get; set; }
 
     }
 }

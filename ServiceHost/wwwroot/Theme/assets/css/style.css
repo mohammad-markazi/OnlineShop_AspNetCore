@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i');
-
+/*@import url('https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i');
+*/
 @font-face {
     font-family: 'IranSans';
     src: url('../fonts/IranianSans.eot'), url('../fonts/IranianSans.eot') format('embedded-opentype'), url('../fonts/IranianSans.woff') format('woff'), url('../fonts/IranianSans.ttf') format('truetype'), url('../fonts/IranianSans.svg') format('svg');
@@ -1746,77 +1746,77 @@ select {
 =            hero slider            =
 =============================================*/
 
-.hero-slider-bg-1 {
-	background-image: url('../img/hero-slider/slider1-eposi1-1820x785.jpg');
-}
-
-.hero-slider-bg-2 {
-	background-image: url('../img/hero-slider/slider2-eposi1-1820x785.jpg');
-}
-
-.hero-slider-bg-3 {
-	background-image: url('../img/hero-slider/slider3-eposi1-1820x785.jpg');
-}
-
-.hero-slider-bg-4 {
-	background-image: url('../img/hero-slider/slider1-eposi2-1920x933.jpg');
-}
-
-.hero-slider-bg-5 {
-	background-image: url('../img/hero-slider/slider2-eposi2-1920x933.jpg');
-}
-
-.hero-slider-bg-6 {
-	background-image: url('../img/hero-slider/slider3-eposi2-1920x933.jpg');
-}
-
-.hero-slider-bg-7 {
-	background-image: url('../img/hero-slider/slider1-eposi3-1920x934.jpg');
-}
-
-.hero-slider-bg-8 {
-	background-image: url('../img/hero-slider/slider2-eposi3-1920x934.jpg');
-}
-
-.hero-slider-bg-9 {
-	background-image: url('../img/hero-slider/slider3-eposi3-1920x934.jpg');
-}
-
-.hero-slider-bg-10 {
-	background-image: url('../img/hero-slider/slider1-eposi4-1920x934.jpg');
-}
-
-.hero-slider-bg-11 {
-	background-image: url('../img/hero-slider/slider2-eposi4-1920x934.jpg');
-}
-
-.hero-slider-bg-12 {
-	background-image: url('../img/hero-slider/slider3-eposi4-1920x934.jpg');
-}
-
-.hero-slider-bg-13 {
-	background-image: url('../img/hero-slider/slider1-eposi5-1170x566.jpg');
-}
-
-.hero-slider-bg-14 {
-	background-image: url('../img/hero-slider/slider2-eposi5-1170x566.jpg');
-}
-
-.hero-slider-bg-15 {
-	background-image: url('../img/hero-slider/slider3-eposi5-1170x566.jpg');
-}
-
-.hero-slider-bg-16 {
-	background-image: url('../img/hero-slider/slider1-eposi6-1920x933.jpg');
-}
-
-.hero-slider-bg-17 {
-	background-image: url('../img/hero-slider/slider2-eposi6-1920x933.jpg');
-}
-
-.hero-slider-bg-18 {
-	background-image: url('../img/hero-slider/slider3-eposi6-1920x933.jpg');
-}
+/* .hero-slider-bg-1 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi1-1820x785.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-2 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi1-1820x785.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-3 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi1-1820x785.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-4 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi2-1920x933.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-5 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi2-1920x933.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-6 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi2-1920x933.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-7 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi3-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-8 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi3-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-9 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi3-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-10 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi4-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-11 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi4-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-12 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi4-1920x934.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-13 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi5-1170x566.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-14 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi5-1170x566.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-15 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi5-1170x566.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-16 { */
+/* 	background-image: url('../img/hero-slider/slider1-eposi6-1920x933.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-17 { */
+/* 	background-image: url('../img/hero-slider/slider2-eposi6-1920x933.jpg'); */
+/* } */
+/* */
+/* .hero-slider-bg-18 { */
+/* 	background-image: url('../img/hero-slider/slider3-eposi6-1920x933.jpg'); */
+/* } */
 
 /*----------  hero slider  ----------*/
 

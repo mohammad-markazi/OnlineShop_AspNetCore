@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using _0_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
+using ShopManagement.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 {
@@ -24,6 +26,8 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
         [BindProperty(SupportsGet = true)]
         public  SearchProductModel SearchModel { get; set; }
+
+        [NeedPermission(ShopPermissions.ListProduct)]
         public void OnGet()
 
         {
@@ -40,7 +44,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
             };
             return Partial("./Create", command);
         }
-
+        [NeedPermission(ShopPermissions.CreateProduct)]
         public JsonResult OnPostCreate(CreateProduct command)
         {
             var result = _productApplication.Create(command);
@@ -54,6 +58,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Products
 
             return Partial("./Edit", product);
         }
+        [NeedPermission(ShopPermissions.EditProduct)]
 
         public JsonResult OnPostEdit(EditProduct command)
         {

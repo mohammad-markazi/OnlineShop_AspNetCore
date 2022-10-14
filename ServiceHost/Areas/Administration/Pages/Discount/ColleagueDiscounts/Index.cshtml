@@ -1,4 +1,6 @@
 ﻿@page
+@using DiscountManagement.Infrastructure.Configuration.Permissions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscounts.IndexModel
 @{
 }
@@ -13,12 +15,12 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">تعریف تخفیف</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")" permission="@DiscountPermissions.CreateColleagueDiscount">تعریف تخفیف</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="@DiscountPermissions.SearchColleagueDiscount">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -78,19 +80,20 @@
                                             }
                                         </td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" 
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                           permission="@DiscountPermissions.EditColleagueDiscount"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = @item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (!item.IsRemoved)
                                             {
 
-                                                <a asp-page="./Index" asp-page-handler="Removed" asp-route-id="@item.Id" class="btn btn-danger">غیرفعال</a>
+                                                <a asp-page="./Index" permission="@DiscountPermissions.RemoveColleagueDiscount" asp-page-handler="Removed" asp-route-id="@item.Id" class="btn btn-danger">غیرفعال</a>
 
                                             }
                                             else
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id" class="btn btn-success">فعال</a>
+                                                <a asp-page="./Index" asp-page-handler="Restore" permission="@DiscountPermissions.RestoreColleagueDiscount" asp-route-id="@item.Id" class="btn btn-success">فعال</a>
 
                                             }
                                         </td>

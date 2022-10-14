@@ -38,7 +38,8 @@ namespace ServiceHost.Pages
                     FullName = result.Data.FullName,
                     RoleId = result.Data.RoleId,
                     Username = result.Data.Username,
-                    AccountId = result.Data.Id
+                    AccountId = result.Data.Id,
+                    Permissions = result.Data.Permissions
                 });
                 return RedirectToPage("./Index");
             }

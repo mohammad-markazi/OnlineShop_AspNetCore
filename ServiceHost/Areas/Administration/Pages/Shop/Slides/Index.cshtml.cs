@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using _0_Framework.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Application.Contracts.Slide;
+using ShopManagement.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 {
@@ -19,6 +21,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
         }
         public List<SlideViewModel> Slides { get; set; }
 
+        [NeedPermission(ShopPermissions.ListSlide)]
         public void OnGet()
         {
             Slides = _slideApplication.GetAll();
@@ -29,6 +32,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
            
             return Partial("./Create", new CreateSlide());
         }
+        [NeedPermission(ShopPermissions.CreateSlide)]
 
         public JsonResult OnPostCreate(CreateSlide command)
         {
@@ -44,6 +48,7 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 
             return Partial("./Edit", slide);
         }
+        [NeedPermission(ShopPermissions.EditSlide)]
 
         public JsonResult OnPostEdit(EditSlide command)
         {
@@ -51,12 +56,14 @@ namespace ServiceHost.Areas.Administration.Pages.Shop.Slides
 
             return new JsonResult(result);
         }
+        [NeedPermission(ShopPermissions.RestoreSlide)]
 
         public IActionResult OnGetRestore(long id)
         {
             _slideApplication.Restore(id);
             return RedirectToPage("./Index");
         }
+        [NeedPermission(ShopPermissions.RemoveSlide)]
 
         public IActionResult OnGetRemove(long id)
         {

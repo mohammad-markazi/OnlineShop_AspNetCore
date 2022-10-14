@@ -1,4 +1,6 @@
 ﻿@page
+@using InventoryManagement.Infrastructure.Configuration.Permissions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Inventory.IndexModel
 @{
 }
@@ -13,12 +15,12 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد انبار</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")" permission="@InventoryPermissions.CreateInventory">ایجاد انبار</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="@InventoryPermissions.SearchInventory">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -88,19 +90,23 @@
                                         @*     } *@
                                         @* </td> *@
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" 
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                           permission="@InventoryPermissions.EditInventory"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = @item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
-                                            <a class="btn btn-success pull-right m-rl-5" 
+                                            <a class="btn btn-success pull-right m-rl-5"
+                                           permission="@InventoryPermissions.IncreaseInventory"
                                                href="#showmodal=@Url.Page("./Index", "Increase", new { id = @item.Id})">
                                                 <i class="fa fa-plus"></i> افزایش موجودی
                                             </a>
-                                            <a class="btn btn-danger pull-right m-rl-5" 
+                                            <a class="btn btn-danger pull-right m-rl-5"
+                                           permission="@InventoryPermissions.ReduceInventory"
                                                href="#showmodal=@Url.Page("./Index", "Reduce", new { id = @item.Id})">
                                                 <i class="fa fa-minus"></i> کاهش موجودی
                                             </a>
-                                            <a class="btn btn-info pull-right m-rl-5" 
+                                            <a class="btn btn-info pull-right m-rl-5"
+                                           permission="@InventoryPermissions.LogInventory"
                                                href="#showmodal=@Url.Page("./Index", "Log", new { id = @item.Id})">
                                                 <i class="fa fa-recycle"></i>  مشاهده گردش انبار 
                                             </a>

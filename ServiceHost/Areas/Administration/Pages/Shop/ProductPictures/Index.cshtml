@@ -1,4 +1,6 @@
 ﻿@page
+@using ShopManagement.Configuration.Permissions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Shop.ProductPictures.IndexModel
 @{
 }
@@ -13,12 +15,12 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد عکس محصول جدید</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")" permission="@ShopPermissions.CreateProductPicture">ایجاد عکس محصول جدید</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="@ShopPermissions.SearchProductPicture">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -82,19 +84,20 @@
                                         </td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" 
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                           permission="@ShopPermissions.EditProductPicture"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = @item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
                                             @if (!item.IsRemoved)
                                             {
 
-                                                <a asp-page="./Index" asp-page-handler="Remove" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
+                                                <a asp-page="./Index" permission="@ShopPermissions.RemoveProductPicture" asp-page-handler="Remove" asp-route-id="@item.Id" class="btn btn-danger">حذف</a>
 
                                             }
                                             else
                                             {
-                                                <a asp-page="./Index" asp-page-handler="Restore" asp-route-id="@item.Id" class="btn btn-success">فعالسازی</a>
+                                                <a asp-page="./Index" asp-page-handler="Restore" permission="@ShopPermissions.RestoreProductPicture" asp-route-id="@item.Id" class="btn btn-success">فعالسازی</a>
 
                                             }
                                         </td>

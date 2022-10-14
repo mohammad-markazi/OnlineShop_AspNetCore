@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using DiscountManagement.Application.Contracts.CustomerDiscount;
+using DiscountManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
@@ -23,6 +25,8 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscounts
         public SelectList Products { get; set; }
         [BindProperty(SupportsGet = true)]
         public  ColleagueDiscountSearchModel SearchModel { get; set; }
+        [NeedPermission(DiscountPermissions.ListColleagueDiscount)]
+
         public void OnGet()
 
         {
@@ -37,6 +41,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscounts
            command.Products = _productApplication.GetAll().ToDictionary(x => x.Id, x => x.Name);
             return Partial("./Create", command);
         }
+        [NeedPermission(DiscountPermissions.CreateColleagueDiscount)]
 
         public JsonResult OnPostCreate(DefineColleagueDiscount command)
         {
@@ -51,6 +56,7 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscounts
 
             return Partial("./Edit", product);
         }
+        [NeedPermission(DiscountPermissions.EditColleagueDiscount)]
 
         public JsonResult OnPostEdit(EditColleagueDiscount command)
         {
@@ -58,12 +64,15 @@ namespace ServiceHost.Areas.Administration.Pages.Discount.ColleagueDiscounts
 
             return new JsonResult(result);
         }
+        [NeedPermission(DiscountPermissions.RemoveColleagueDiscount)]
 
         public IActionResult OnGetRemoved(long id)
         {
             _colleagueDiscountApplication.Remove(id);
             return RedirectToPage("./Index");
         }
+        [NeedPermission(DiscountPermissions.RestoreColleagueDiscount)]
+
         public IActionResult OnGetRestore(long id)
         {
             _colleagueDiscountApplication.Restore(id);

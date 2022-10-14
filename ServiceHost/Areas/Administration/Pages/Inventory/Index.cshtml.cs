@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using _0_Framework.Infrastructure;
 using DiscountManagement.Application.Contracts.ColleagueDiscount;
 using InventoryManagement.Application.Contracts.Inventory;
+using InventoryManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
 using ShopManagement.Application.Contracts.Product;
+using ShopManagement.Configuration.Permissions;
 
 namespace ServiceHost.Areas.Administration.Pages.Inventory
 {
@@ -23,6 +26,8 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
         public SelectList Products { get; set; }
         [BindProperty(SupportsGet = true)]
         public  InventorySearchModel SearchModel { get; set; }
+        [NeedPermission(InventoryPermissions.ListInventory)]
+
         public void OnGet()
 
         {
@@ -37,6 +42,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
            command.RelatedEntities = _productApplication.GetAll().ToDictionary(x => x.Id, x => x.Name);
             return Partial("./Create", command);
         }
+        [NeedPermission(InventoryPermissions.CreateInventory)]
 
         public JsonResult OnPostCreate(CreateInventory command)
         {
@@ -51,6 +57,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
 
             return Partial("./Edit", inventory);
         }
+        [NeedPermission(InventoryPermissions.EditInventory)]
 
         public JsonResult OnPostEdit(EditInventory command)
         {
@@ -67,6 +74,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             };
             return Partial("./Increase", command);
         }
+        [NeedPermission(InventoryPermissions.IncreaseInventory)]
 
         public JsonResult OnPostIncrease(IncreaseInventory command)
         {
@@ -83,6 +91,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             };
             return Partial("./Reduce", command);
         }
+        [NeedPermission(InventoryPermissions.ReduceInventory)]
 
         public JsonResult OnPostReduce(ReduceInventory command)
         {
@@ -91,6 +100,7 @@ namespace ServiceHost.Areas.Administration.Pages.Inventory
             return new JsonResult(result);
 
         }
+        [NeedPermission(InventoryPermissions.LogInventory)]
 
         public IActionResult OnGetLog(long id)
         {

@@ -21,6 +21,12 @@ namespace AccountManagement.Infrastructure.EfCore.Mapping
 
             builder.HasMany(x => x.Accounts).WithOne(x => x.Role).HasForeignKey(x => x.RoleId);
 
+            builder.OwnsMany(x => x.Permissions, builderRole =>
+            {
+                builderRole.ToTable("RolePermissions");
+                builderRole.HasKey(x => x.Id);
+                builderRole.WithOwner(x => x.Role);
+            });
         }
     }
 }

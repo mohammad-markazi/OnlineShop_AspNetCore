@@ -16,6 +16,7 @@ using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Application.Contracts.Slide;
+using ShopManagement.Configuration.Permissions;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
@@ -53,7 +54,8 @@ namespace ShopManagement.Configuration
             service.AddTransient<ISlideQuery, SlideQuery>();
 
 
-         
+
+            service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
 
 
             service.AddDbContext<ShopContext>(options =>

@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using _0_Framework.Application;
 using AccountManagement.Application.Contracts.Account;
 using AccountManagement.Domain.AccountAgg;
+using AccountManagement.Domain.RoleAgg;
 
 namespace AccountManagement.Application
 {
     public class AccountApplication:IAccountApplication
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IFileUploader _fileUploader;
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader)
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IRoleRepository roleRepository)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _fileUploader = fileUploader;
+            _roleRepository = roleRepository;
         }
 
         public OperationResult Register(RegisterAccount command)
@@ -97,13 +101,15 @@ namespace AccountManagement.Application
             if (!verified)
                 return operation.Failed(ApplicationMessages.NotFoundUsernameOrPassword);
 
+          var permissions=  _roleRepository.Get(account.RoleId).Permissions.Select(x=>x.Code).ToList();
             var result= operation.Succeeded();
             result.Data = new AccountViewModel()
             {
                 Id = account.Id,
                 FullName = account.FullName,
                 Username = account.Username,
-                RoleId = account.RoleId
+                RoleId = account.RoleId,
+                Permissions = permissions
             };
 
             return operation;

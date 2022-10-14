@@ -26,8 +26,12 @@ namespace _0_Framework.Application
                 new Claim("AccountId", authViewModel.AccountId.ToString()),
                 new Claim(ClaimTypes.Name, authViewModel.FullName),
                 new Claim(ClaimTypes.Role, authViewModel.RoleId.ToString()),
-                new Claim("Username", authViewModel.Username), // Or Use ClaimTypes.NameIdentifier
+                new Claim("Username", authViewModel.Username),
+
+                // Or Use ClaimTypes.NameIdentifier
             };
+            if(authViewModel.Permissions.Count>0)
+                claims.Add(new Claim("Permissions", string.Join(',', authViewModel.Permissions)));
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -52,6 +56,15 @@ namespace _0_Framework.Application
             if (_contextAccessor.HttpContext.User.Identity != null && _contextAccessor.HttpContext.User.Identity.IsAuthenticated)
                 return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x=>x.Type==ClaimTypes.Role)!.Value;
             return null;
+        }
+
+        public List<int> GetPermissionsUser()
+        {
+            if (!_contextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                return new List<int>();
+            return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Permissions")?
+                .Value.Split(',',StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+
         }
     }
 }

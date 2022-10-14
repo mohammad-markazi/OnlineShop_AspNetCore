@@ -8,7 +8,7 @@ using _0_Framework.Domain;
 using AccountManagement.Application.Contracts.Role;
 using AccountManagement.Domain.RoleAgg;
 using Microsoft.EntityFrameworkCore;
-
+using _0_Framework.Infrastructure;
 namespace AccountManagement.Application
 {
     public class RoleApplication:IRoleApplication
@@ -26,7 +26,7 @@ namespace AccountManagement.Application
 
             if (_roleRepository.Exists(x => x.Name == command.Name))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-            var role = new Role(command.Name);
+            var role = new Role(command.Name,command.Type,new List<Permission>());
             _roleRepository.Create(role);
             _roleRepository.SaveChanges();
             return operation.Succeeded();
@@ -42,8 +42,9 @@ namespace AccountManagement.Application
 
             if (_roleRepository.Exists(x =>x.Id!=role.Id && x.Name == command.Name))
                 return operation.Failed(ApplicationMessages.DuplicatedRecord);
-
-            role.Edit(command.Name);
+            var permission=new List<Permission>();
+            command.Permissions.ForEach(Code => permission.Add(new Permission(Code)));
+            role.Edit(command.Name,command.Type, permission);
             _roleRepository.SaveChanges();
 
             return operation.Succeeded();
@@ -57,7 +58,12 @@ namespace AccountManagement.Application
             {
                 Id = role.Id,
                 Name = role.Name,
+              MapPermissions=role.Permissions.Select(x=>new PermissionDto(x.Name,x.Code)).ToList(),
+              Permissions = role.Permissions.Select(x=>x.Code).ToList(),
+              Type = role.Type
             };
+
+
         }
 
         public List<RoleViewModel> GetAll()
