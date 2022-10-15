@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ServiceHost.Areas.Administration.Pages.Shared;
@@ -21,6 +23,8 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
         public SelectList ArticleCategories { get; set; }
         [BindProperty(SupportsGet = true)]
         public  ArticleSearchModel SearchModel { get; set; }
+        [NeedPermission(BlogPermissions.ListArticle)]
+
         public void OnGet()
         
         {

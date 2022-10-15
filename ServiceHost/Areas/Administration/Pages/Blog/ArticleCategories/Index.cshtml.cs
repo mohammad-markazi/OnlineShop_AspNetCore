@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using ServiceHost.Areas.Administration.Pages.Shared;
 using ShopManagement.Application.Contracts.ProductCategory;
@@ -18,6 +20,8 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
 
         [BindProperty(SupportsGet = true)]
         public  ArticleCategorySearchModel SearchModel { get; set; }
+        [NeedPermission(BlogPermissions.ListArticleCategory)]
+
         public void OnGet()
         
         {
@@ -29,6 +33,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
 
             return Partial("./Create",new CreateArticleCategory());
         }
+        [NeedPermission(BlogPermissions.CreateArticleCategory)]
 
         public JsonResult OnPostCreate(CreateArticleCategory command)
         {
@@ -42,6 +47,7 @@ namespace ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories
 
             return Partial("./Edit", articleCategory);
         }
+        [NeedPermission(BlogPermissions.EditArticleCategory)]
 
         public JsonResult OnPostEdit(EditArticleCategory command)
         {

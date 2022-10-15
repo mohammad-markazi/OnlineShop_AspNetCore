@@ -1,11 +1,15 @@
+using _0_Framework.Infrastructure;
 using BlogManagement.Application.Contracts.Article;
 using BlogManagement.Application.Contracts.ArticleCategory;
+using BlogManagement.Infrastructure.Configuration.Permissions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ServiceHost.Areas.Administration.Pages.Blog.Articles
 {
+    [NeedPermission(BlogPermissions.CreateArticle)]
+
     public class CreateModel : PageModel
     {
         private readonly IArticleCategoryApplication _articleCategoryApplication;

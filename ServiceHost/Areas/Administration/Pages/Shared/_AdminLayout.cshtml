@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @using DiscountManagement.Infrastructure.Configuration.Permissions
 @using InventoryManagement.Infrastructure.Configuration.Permissions
+@using CommentManagement.Infrastructure.Configuration.Permissions
+@using BlogManagement.Infrastructure.Configuration.Permissions
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,14 +204,14 @@
 
                     </ul>
                 </li>
-                <li>
+                <li permission="CommentPermissions.ListComment">
                     <a asp-page="/Comments/Index" class="waves-effect"><i class="md md-home"></i><span> نظرات </span></a>
                 </li>
                 <li class="has_sub">
                     <a class="waves-effect"><i class="md md-mail"></i><span> مقالات </span><span class="pull-right"><i class="md md-add"></i></span></a>
                     <ul class="list-unstyled">
-                        <li><a asp-page="/Blog/ArticleCategories/Index">مدیریت گروه مقالات</a></li>
-                        <li><a asp-page="/Blog/Articles/Index">مدیریت مقالات</a></li>
+                                <li permission="BlogPermissions.ListArticleCategory"><a asp-page="/Blog/ArticleCategories/Index">مدیریت گروه مقالات</a></li>
+                        <li permission="BlogPermissions.ListArticle"><a asp-page="/Blog/Articles/Index">مدیریت مقالات</a></li>
 
                     </ul>
                 </li>    

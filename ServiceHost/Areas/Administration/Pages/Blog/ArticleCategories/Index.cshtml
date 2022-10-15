@@ -1,4 +1,6 @@
 ﻿@page
+@using BlogManagement.Infrastructure.Configuration.Permissions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Blog.ArticleCategories.IndexModel
 @{
 }
@@ -13,12 +15,12 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")">ایجاد گروه مقاله</a>
+            <a class="btn btn-success btn-lg" href="#showmodal=@Url.Page("./Index", "Create")" permission="BlogPermissions.CreateArticleCategory">ایجاد گروه مقاله</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="BlogPermissions.SearchArticleCategory">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -72,7 +74,8 @@
                                         <td>@item.ArticleCount</td>
                                         <td>@item.CreationDate</td>
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" 
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                           permission="BlogPermissions.EditArticleCategory"
                                                href="#showmodal=@Url.Page("./Index", "Edit", new { id = @item.Id})">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>

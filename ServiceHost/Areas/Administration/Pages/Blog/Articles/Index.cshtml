@@ -1,4 +1,6 @@
 ﻿@page
+@using BlogManagement.Infrastructure.Configuration.Permissions
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ServiceHost.Areas.Administration.Pages.Blog.Articles.IndexModel
 @{
 }
@@ -13,16 +15,16 @@
     <div class="col-sm-12">
         <h4 class="page-title pull-right">@ViewData["title"]</h4>
         <p class="pull-left">
-            <a class="btn btn-success btn-lg" asp-page="./Create">ایجاد مقاله</a>
+            <a class="btn btn-success btn-lg" asp-page="./Create" permission="BlogPermissions.CreateArticle">ایجاد مقاله</a>
         </p>
     </div>
 </div>
 
-<div class="row">
+<div class="row" permission="BlogPermissions.SearchArticle">
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">جستجو در گروه مقالات</h3>
+                <h3 class="panel-title">جستجو در  مقالات</h3>
             </div>
             <div class="panel-body">
                 <form class="form-inline" role="form" method="get">
@@ -81,7 +83,8 @@
                                         <td>@item.PublishDate</td>
 
                                         <td>
-                                            <a class="btn btn-warning pull-right m-rl-5" 
+                                            <a class="btn btn-warning pull-right m-rl-5"
+                                           permission="BlogPermissions.EditArticle"
                                                asp-page="./Edit" asp-route-id="@item.Id">
                                                 <i class="fa fa-edit"></i> ویرایش
                                             </a>
