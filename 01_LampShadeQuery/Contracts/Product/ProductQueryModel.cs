@@ -12,8 +12,11 @@ namespace _01_LampShadeQuery.Contracts.Product
         public long Id { get; set; }
         public string Name { get; set; }
         public string Price { get; set; }
+        public double PriceDouble { get; set; }
         public string ShortDescription { get; set; }
         public string PriceWithDiscount { get; set; }
+        public double PriceWithDiscountDouble { get; set; }
+
         public int DiscountRate { get; set; }
         public string CategoryName { get; set; }
         public string Picture { get; set; }

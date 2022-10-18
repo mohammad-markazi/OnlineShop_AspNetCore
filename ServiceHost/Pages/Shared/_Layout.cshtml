@@ -94,8 +94,11 @@
     <!-- Active JS -->
 <script src="~/Theme/assets/js/active.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/Theme/assets/js/jquery.cookie.js"></script>
 <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.min.js"></script>
 <script src="~/AdminTheme/assets/sweet-alert/sweet-alert.init.js"></script>
+    <script src="~/Theme/assets/js/Custom.js"></script>
+
 </body>
 @await RenderSectionAsync("Scripts",false)
 <script>
@@ -104,6 +107,9 @@
     @Html.Raw(TempData["Notification"])
 }
 
+   $(document).ready(function(){
+            updateCart();
+   })
 
 </script>
 </html>

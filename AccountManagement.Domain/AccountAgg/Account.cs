@@ -19,7 +19,8 @@ namespace AccountManagement.Domain.AccountAgg
         public string Profile { get; private set; }
         public long RoleId { get; private set; }
         public Role Role { get; private set; }
-        public Account(string fullName, string username, string password, string mobile, string profile, long roleId)
+        public long Type { get; private set; }
+        public Account(string fullName, string username, string password, string mobile, string profile, long roleId, long type)
         {
             FullName = fullName;
             Username = username;
@@ -27,9 +28,10 @@ namespace AccountManagement.Domain.AccountAgg
             Mobile = mobile;
             Profile = profile;
             RoleId = roleId;
+            Type = type;
         }
 
-        public void Edit(string fullName, string username, string mobile, string profile, long roleId)
+        public void Edit(string fullName, string username, string mobile, string profile, long roleId,long type)
         {
             FullName = fullName;
             Username = username;
@@ -37,6 +39,7 @@ namespace AccountManagement.Domain.AccountAgg
             if(!string.IsNullOrWhiteSpace(profile))
                 Profile = profile;
             RoleId = roleId;
+            Type = type;
         }
 
         public void ChangePassword(string password) => Password = password;

@@ -21,18 +21,18 @@ namespace ServiceHost
 
         public void InitializeData()
         {
-            var roleAdmin = _accountContext.Roles.SingleOrDefault(x => x.Type == RoleTypes.SuperUser);
-            var roleNormalUser = _accountContext.Roles.SingleOrDefault(x => x.Type == RoleTypes.NormalUser);
+            var roleAdmin = _accountContext.Roles.SingleOrDefault(x => x.Type == RoleTypes.Super);
+            var roleNormalUser = _accountContext.Roles.SingleOrDefault(x => x.Type == RoleTypes.Normal);
             if (roleNormalUser is null)
             {
-                roleNormalUser = new Role("کاربر معمولی", RoleTypes.NormalUser);
+                roleNormalUser = new Role("کاربر معمولی", RoleTypes.Normal);
                 _accountContext.Roles.Add(roleNormalUser);
                 _accountContext.SaveChanges();
             }
 
             if (roleAdmin is null)
             {
-                roleAdmin = new Role("مدیر سیستم", RoleTypes.SuperUser);
+                roleAdmin = new Role("مدیر سیستم", RoleTypes.Super);
                 _accountContext.Roles.Add(roleAdmin);
                 _accountContext.SaveChanges();
             }

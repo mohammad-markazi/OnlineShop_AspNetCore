@@ -27,6 +27,7 @@ namespace _0_Framework.Application
                 new Claim(ClaimTypes.Name, authViewModel.FullName),
                 new Claim(ClaimTypes.Role, authViewModel.RoleId.ToString()),
                 new Claim("Username", authViewModel.Username),
+                new Claim("Type", authViewModel.Type.ToString()),
 
                 // Or Use ClaimTypes.NameIdentifier
             };
@@ -65,6 +66,25 @@ namespace _0_Framework.Application
             return _contextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == "Permissions")?
                 .Value.Split(',',StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
 
+        }
+
+        public AuthViewModel GetUserInfo()
+        {
+            var claimUser = _contextAccessor.HttpContext.User.Claims.ToList();
+            if (claimUser.Count == 0)
+                return null;
+
+            var accountInfo = new AuthViewModel()
+            {
+                Permissions = claimUser.FirstOrDefault(x => x.Type == "Permissions")?.Value.Split(',').Select(int.Parse)
+                    .ToList(),
+                RoleId = int.Parse(claimUser.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value),
+                AccountId = int.Parse(claimUser.FirstOrDefault(x => x.Type == "AccountId")?.Value),
+                Username = claimUser.FirstOrDefault(x => x.Type == "Username")?.Value,
+                FullName = claimUser.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value,
+                Type = int.Parse(claimUser.FirstOrDefault(x => x.Type == "Type")?.Value)
+            };
+            return accountInfo;
         }
     }
 }

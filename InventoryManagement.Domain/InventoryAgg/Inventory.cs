@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace InventoryManagement.Domain.InventoryAgg
         public bool InStock { get; private set; }
 
         public List<InventoryOperation> InventoryOperations { get; private set; }
+        [NotMapped]
+        public long CurrentCount => CalculateCurrentCount();
 
         public Inventory(long entityId, double unitPrice)
         {
@@ -33,7 +36,6 @@ namespace InventoryManagement.Domain.InventoryAgg
         {
             var plus = InventoryOperations.Where(x => x.Operation).Sum(x => x.Count);
             var minus= InventoryOperations.Where(x => !x.Operation).Sum(x => x.Count);
-
             return plus - minus;
         }
 

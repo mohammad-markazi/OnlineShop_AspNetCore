@@ -28,5 +28,7 @@ namespace AccountManagement.Application.Contracts.Account
         public long RoleId { get;  set; }
 
         public List<RoleViewModel> Roles { get; set; }
+
+        public long Type { get; set; }
     }
 }

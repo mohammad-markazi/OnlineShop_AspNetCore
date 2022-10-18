@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using _01_LampShadeQuery.Contracts.Order;
 
 namespace _01_LampShadeQuery.Contracts.Product
 {
@@ -12,5 +13,7 @@ namespace _01_LampShadeQuery.Contracts.Product
         List<ProductQueryModel> Search(string value);
 
         ProductQueryModel GetDetailBy(string slug);
+
+        List<CartItem> CheckStatusInventory( List<CartItem> cartItems);
     }
 }

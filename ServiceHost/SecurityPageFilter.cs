@@ -1,10 +1,13 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using _0_Framework.Application;
 using _0_Framework.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ServiceHost
 {
+   
     public class SecurityPageFilter:IPageFilter
     {
         private readonly IAuthHelper _authHelper;
@@ -16,6 +19,7 @@ namespace ServiceHost
 
         public void OnPageHandlerSelected(PageHandlerSelectedContext context)
         {
+            
             return;
         }
 

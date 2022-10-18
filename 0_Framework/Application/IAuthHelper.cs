@@ -12,5 +12,7 @@ namespace _0_Framework.Application
 
         List<int> GetPermissionsUser();
 
+        AuthViewModel GetUserInfo();
+
     }
 }

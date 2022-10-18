@@ -32,7 +32,7 @@ namespace AccountManagement.Application
             var filename = _fileUploader.Upload(command.Profile, "Profiles");
 
             var account = new Account(command.FullName,
-                command.Username, password, command.Mobile, filename, command.RoleId);
+                command.Username, password, command.Mobile, filename, command.RoleId,command.Type);
             _accountRepository.Create(account);
             _accountRepository.SaveChanges();
 
@@ -55,7 +55,7 @@ namespace AccountManagement.Application
             
            var filename= _fileUploader.Upload(command.Profile, "Profiles");
 
-            account.Edit(command.FullName,command.Username,command.Mobile,filename,command.RoleId);
+            account.Edit(command.FullName,command.Username,command.Mobile,filename,command.RoleId,command.Type);
             _accountRepository.SaveChanges();
 
             return operation.Succeeded();
@@ -109,7 +109,8 @@ namespace AccountManagement.Application
                 FullName = account.FullName,
                 Username = account.Username,
                 RoleId = account.RoleId,
-                Permissions = permissions
+                Permissions = permissions,
+                Type = account.Type
             };
 
             return operation;

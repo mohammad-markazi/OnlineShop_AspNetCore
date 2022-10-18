@@ -18,5 +18,7 @@ namespace AccountManagement.Application.Contracts.Account
         public string CreationDate { get; set; }
         public List<int> Permissions { get; set; }
 
+        public long Type { get; set; }
+
     }
 }

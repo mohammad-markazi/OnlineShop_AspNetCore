@@ -12,6 +12,8 @@ using System.Text.Unicode;
 using System.Threading.Tasks;
 using _0_Framework.Application;
 using _0_Framework.Infrastructure;
+using _01_LampShadeQuery.Contracts;
+using _01_LampShadeQuery.Query;
 using AccountManagement.Infrastructure.Configuration;
 using AccountManagement.Infrastructure.EfCore;
 using BlogManagement.Infrastructure.Configuration;
@@ -48,6 +50,8 @@ namespace ServiceHost
             services.AddSingleton<IFileUploader, FileUploader>();
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IAuthHelper,AuthHelper>();
+            services.AddTransient<ICartCalculatorService,CartCalculatorService>();
+
             //find text persian encoding in meta tag
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
             services.AddScoped<IDataInitializer, DataInitializer>();

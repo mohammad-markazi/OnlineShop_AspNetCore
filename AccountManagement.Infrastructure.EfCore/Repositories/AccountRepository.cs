@@ -66,7 +66,8 @@ namespace AccountManagement.Infrastructure.EfCore.Repositories
                 Mobile = account.Mobile,
                 Password = account.Password,
                 RoleId = account.RoleId,
-                Username = account.Username
+                Username = account.Username,
+                Type = account.Type
             };
         }
     }

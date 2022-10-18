@@ -14,5 +14,7 @@ namespace _0_Framework.Application
         public bool Remember { get; set; }
 
         public List<int> Permissions { get; set; }
+
+        public long Type { get; set; }
     }
 }

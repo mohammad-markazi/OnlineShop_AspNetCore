@@ -39,7 +39,8 @@ namespace ServiceHost.Pages
                     RoleId = result.Data.RoleId,
                     Username = result.Data.Username,
                     AccountId = result.Data.Id,
-                    Permissions = result.Data.Permissions
+                    Permissions = result.Data.Permissions,
+                    Type = result.Data.Type
                 });
                 return RedirectToPage("./Index");
             }
@@ -56,7 +57,7 @@ namespace ServiceHost.Pages
 
         public IActionResult OnPostRegister(RegisterAccount account)
         {
-            account.RoleId=_roleApplication.GetRoleByType(RoleTypes.NormalUser).Id;
+            account.RoleId=_roleApplication.GetRoleByType(RoleTypes.Normal).Id;
 
           var result=  _accountApplication.Register(account);
           if (result.IsSuccess)

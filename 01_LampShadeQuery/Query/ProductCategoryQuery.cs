@@ -82,6 +82,7 @@ namespace _01_LampShadeQuery.Query
                     PictureTitle = product.PictureTitle,
                     PictureAlt = product.PictureAlt,
                     Price = inventory is null? "بدون قیمت گذاری":inventory.UnitPrice.ToMoney(),
+                    PriceDouble = inventory?.UnitPrice ?? 0,
                     DiscountRate = discount?.DiscountRate ?? 0,
                     Slug = product.Slug
                 };
@@ -89,6 +90,7 @@ namespace _01_LampShadeQuery.Query
                 {
                     var discountAmout = Math.Round((inventory.UnitPrice * productQueryModel.DiscountRate) / 100);
                     productQueryModel.PriceWithDiscount=(inventory.UnitPrice - discountAmout).ToMoney();
+                    productQueryModel.PriceWithDiscountDouble = (inventory.UnitPrice - discountAmout);
                     productQueryModel.DiscountExpiration = discount!.EndDate.ToDiscountFormat();
                 }
                 result.Add(productQueryModel);

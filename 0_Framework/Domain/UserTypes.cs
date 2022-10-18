@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace _0_Framework.Domain
 {
-    public class RoleTypes
+    public static class UserTypes
     {
-        public static int Normal=0;
-        public static int Custom = 1;
-        public static int Super = 2;
+        public static int Normal = 0;
+        public static int Colleague = 1;
 
     }
-    
 }
