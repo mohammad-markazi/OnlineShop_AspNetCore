@@ -95,9 +95,13 @@
                                     @*     <p>Shipping Cost <span>$00.00</span></p> *@
                                     @*     <h2>Grand Total <span>$1250.00</span></h2> *@
                                     @* </div> *@
-                                    <div class="cart-summary-button">
-                                        <a class="checkout-btn" asp-page-handler="GoToCheckOut">تکمیل فرایند</a>
-                                    </div>
+                                    @if (Model.CartItems.Count > 0)
+                                    {
+                                        <div class="cart-summary-button">
+                                            <a class="checkout-btn" asp-page-handler="GoToCheckOut">تکمیل فرایند</a>
+                                        </div>
+                                    }
+                                 
                                 </div>
                             </div>
                         </div>

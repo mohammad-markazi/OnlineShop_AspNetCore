@@ -86,5 +86,10 @@ namespace _0_Framework.Application
             };
             return accountInfo;
         }
+
+        public long GetUserId()
+        {
+            return int.Parse(_contextAccessor.HttpContext.User.Claims.First(x => x.Type == "AccountId").Value);
+        }
     }
 }

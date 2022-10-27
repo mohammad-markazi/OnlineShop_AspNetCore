@@ -14,5 +14,7 @@ namespace _0_Framework.Application
 
         AuthViewModel GetUserInfo();
 
+        long GetUserId();
+
     }
 }

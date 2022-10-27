@@ -12,17 +12,21 @@ using _01_LampShadeQuery.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ShopManagement.Application;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Application.Contracts.Product;
 using ShopManagement.Application.Contracts.ProductCategory;
 using ShopManagement.Application.Contracts.ProductPicture;
 using ShopManagement.Application.Contracts.Slide;
 using ShopManagement.Configuration.Permissions;
+using ShopManagement.Domain.OrderAgg;
 using ShopManagement.Domain.ProductAgg;
 using ShopManagement.Domain.ProductCategoryAgg;
 using ShopManagement.Domain.ProductPictureAgg;
+using ShopManagement.Domain.Services;
 using ShopManagement.Domain.SlideAgg;
 using ShopManagement.Infrastructure.EfCore;
 using ShopManagement.Infrastructure.EfCore.Repositories;
+using ShopManagement.Infrastructure.InventoryAcl;
 
 namespace ShopManagement.Configuration
 {
@@ -57,6 +61,14 @@ namespace ShopManagement.Configuration
 
             service.AddTransient<IPermissionExposer, ShopPermissionExposer>();
 
+
+            service.AddTransient<IShopInventoryAcl, ShopInventoryAcl>();
+
+            service.AddTransient<IOrderApplication, OrderApplication>();
+            service.AddTransient<IOrderRepository, OrderRepository>();
+
+
+            service.AddSingleton<ICartService,CartService>();
 
             service.AddDbContext<ShopContext>(options =>
             {

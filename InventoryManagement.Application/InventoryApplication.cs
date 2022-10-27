@@ -10,10 +10,11 @@ namespace InventoryManagement.Application
     public class InventoryApplication:IInventoryApplication
     {
         private readonly IInventoryRepository _inventoryRepository;
-
-        public InventoryApplication(IInventoryRepository inventoryRepository)
+        private readonly IAuthHelper _authHelper;
+        public InventoryApplication(IInventoryRepository inventoryRepository, IAuthHelper authHelper)
         {
             _inventoryRepository = inventoryRepository;
+            _authHelper = authHelper;
         }
 
         public OperationResult Create(CreateInventory command)
@@ -86,7 +87,7 @@ namespace InventoryManagement.Application
             if (inventory is null)
                 return operation.Failed(ApplicationMessages.NotFoundRecord);
 
-            long operatorId = 1;
+            long operatorId = _authHelper.GetUserId();
 
             inventory.Increase(command.Count,operatorId,command.Description);
             _inventoryRepository.SaveChanges();
@@ -95,7 +96,8 @@ namespace InventoryManagement.Application
 
         public OperationResult Reduce(List<ReduceInventory> command)
         {
-            long operatorId = 1;
+            long operatorId = _authHelper.GetUserId();
+
             var operation = new OperationResult();
 
             foreach (var item in command)
@@ -122,20 +124,7 @@ namespace InventoryManagement.Application
 
         public List<InventoryOperationViewModel> GetOperationLog(long inventoryId)
         {
-            var inventory=_inventoryRepository.Get(inventoryId);
-
-            return inventory.InventoryOperations.Select(x => new InventoryOperationViewModel()
-            {
-                Count = x.Count,
-                CurrentCount = x.CurrentCount,
-                Description = x.Description,
-                Id = x.Id,
-                Operation = x.Operation,
-                OrderId = x.OrderId,
-                OperationDate = x.OperationDate.ToFarsi(),
-                OperationId = x.OperationId,
-                Operator = "مدیر سیستم"
-            }).OrderByDescending(x=>x.Id).ToList();
+            return _inventoryRepository.GetOperationLog(inventoryId);
         }
     }
 }

@@ -16,5 +16,7 @@ namespace AccountManagement.Application.Contracts.Account
         EditAccount GetDetail(long id);
 
         OperationResult<AccountViewModel> Login(Login command);
+
+        List<AccountViewModel> GetAll();
     }
 }

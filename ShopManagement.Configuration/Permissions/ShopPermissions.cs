@@ -34,6 +34,7 @@ namespace ShopManagement.Configuration.Permissions
         public const int RemoveSlide = 44;
 
 
+        public const int ListOrder = 410;
 
     }
 }

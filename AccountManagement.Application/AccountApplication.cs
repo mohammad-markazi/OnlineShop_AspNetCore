@@ -115,5 +115,11 @@ namespace AccountManagement.Application
 
             return operation;
         }
+
+        public List<AccountViewModel> GetAll()
+        {
+            return _accountRepository.GetAll().Select(x => new AccountViewModel() { Id = x.Id, FullName = x.FullName })
+                .ToList();
+        }
     }
 }

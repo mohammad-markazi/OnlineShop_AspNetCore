@@ -4,9 +4,9 @@ using System.Linq;
 using _0_Framework.Application;
 using _0_Framework.Domain;
 using _01_LampShadeQuery.Contracts;
-using _01_LampShadeQuery.Contracts.Order;
 using DiscountManagement.Infrastructure.EfCore;
 using InventoryManagement.Infrastructure.EfCore;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Infrastructure.EfCore;
 
 namespace _01_LampShadeQuery.Query

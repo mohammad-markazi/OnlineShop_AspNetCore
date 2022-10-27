@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Application;
-using _01_LampShadeQuery.Contracts.Order;
 using _01_LampShadeQuery.Contracts.Product;
 using CommentManagement.Domain.CommentAgg;
 using CommentManagement.Infrastructure.EfCore;
 using DiscountManagement.Infrastructure.EfCore;
 using InventoryManagement.Infrastructure.EfCore;
 using Microsoft.EntityFrameworkCore;
+using ShopManagement.Application.Contracts.Order;
 using ShopManagement.Domain.ProductPictureAgg;
 using ShopManagement.Infrastructure.EfCore;
 
@@ -163,6 +163,19 @@ namespace _01_LampShadeQuery.Query
             }
 
             return cartItems;
+        }
+
+        public bool CheckInventory(Cart cart)
+        {
+            var inventory = _inventoryContext.Inventory.Select(x => new { x.EntityId, x.InStock, x.CurrentCount }).ToList();
+            foreach (var cartItem in cart.CartItems)
+            {
+                var itemInventory = inventory.FirstOrDefault(x => cartItem.Id == x.EntityId);
+                if (itemInventory is not null && itemInventory.InStock && itemInventory.CurrentCount >= cartItem.Count)
+                    return false;
+            }
+
+            return true;
         }
 
         private  List<CommentQueryModel> MapComments(long id)

@@ -12,6 +12,7 @@ using System.Text.Unicode;
 using System.Threading.Tasks;
 using _0_Framework.Application;
 using _0_Framework.Infrastructure;
+using _0_Framework.Infrastructure.ZarinPal;
 using _01_LampShadeQuery.Contracts;
 using _01_LampShadeQuery.Query;
 using AccountManagement.Infrastructure.Configuration;
@@ -23,6 +24,7 @@ using InventoryManagement.Infrastructure.Configuration;
 using CommentManagement.Infrastructure.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using ShopManagement.Domain.Services;
 
 namespace ServiceHost
 {
@@ -40,10 +42,9 @@ namespace ServiceHost
         {
             services.AddHttpContextAccessor();
             var connectionString = Configuration.GetConnectionString("LampShade");
-
+            InventoryManagementBootstrapper.Configure(services, connectionString);
             ShopManagementBootstrapper.Configure(services, connectionString);
             DiscountManagementBootstrapper.Configure(services,connectionString);
-            InventoryManagementBootstrapper.Configure(services,connectionString);
             BlogManagementBootstrapper.Configure(services,connectionString);
             CommentManagementBootstrapper.Configure(services,connectionString);
             AccountManagementBootstrapper.Configure(services,connectionString);
@@ -51,7 +52,7 @@ namespace ServiceHost
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
             services.AddTransient<IAuthHelper,AuthHelper>();
             services.AddTransient<ICartCalculatorService,CartCalculatorService>();
-
+            services.AddTransient<IZarinPalFactory,ZarinPalFactory>();
             //find text persian encoding in meta tag
             services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Arabic));
             services.AddScoped<IDataInitializer, DataInitializer>();

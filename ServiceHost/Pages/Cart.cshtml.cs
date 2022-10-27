@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using _01_LampShadeQuery.Contracts.Order;
 using _01_LampShadeQuery.Contracts.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
+using ShopManagement.Application.Contracts.Order;
 
 namespace ServiceHost.Pages
 {
@@ -24,11 +24,15 @@ namespace ServiceHost.Pages
         public void OnGet()
         {
             var cartsCookie = Request.Cookies[CookieName];
+
             if(cartsCookie is null)
                 CartItems=new List<CartItem>();
-
-            CartItems = JsonConvert.DeserializeObject<List<CartItem>>(cartsCookie);
-          CartItems= _productQuery.CheckStatusInventory(CartItems);
+            else
+            {
+                CartItems = JsonConvert.DeserializeObject<List<CartItem>>(cartsCookie);
+                CartItems = _productQuery.CheckStatusInventory(CartItems);
+            }
+           
         }
 
         public IActionResult OnGetRemoveItemCart(long id)
@@ -61,7 +65,8 @@ namespace ServiceHost.Pages
             if(CartItems.Any(x=>!x.InStock))
                 return RedirectToPage("./Cart");
 
-            return RedirectToPage("./Checkout");
+                return RedirectToPage("./Checkout");
+
         }
     }
 }

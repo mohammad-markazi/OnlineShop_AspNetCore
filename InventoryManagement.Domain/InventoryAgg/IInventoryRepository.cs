@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using _0_Framework.Domain;
+using InventoryManagement.Application.Contracts.Inventory;
 
 namespace InventoryManagement.Domain.InventoryAgg
 {
@@ -12,5 +13,7 @@ namespace InventoryManagement.Domain.InventoryAgg
         Inventory GetByEntity(long entityId);
 
         Dictionary<long, string> GetProducts();
+
+        List<InventoryOperationViewModel> GetOperationLog(long inventoryId);
     }
 }
